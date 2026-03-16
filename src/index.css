@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 42 33% 97%;
+    --foreground: 220 20% 16%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 16%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 16%;
+
+    --primary: 197 82% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 42 25% 92%;
+    --secondary-foreground: 220 20% 18%;
+
+    --muted: 42 18% 93%;
+    --muted-foreground: 215 12% 44%;
+
+    --accent: 24 90% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 28 20% 84%;
+    --input: 28 20% 84%;
+    --ring: 197 82% 42%;
+
+    --radius: 1rem;
+
+    --severity-fatal: 0 72% 51%;
+    --severity-serious: 28 92% 54%;
+    --severity-incident: 45 96% 53%;
+
+    --sidebar-background: 38 30% 95%;
+    --sidebar-foreground: 220 20% 20%;
+    --sidebar-primary: 197 82% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 38 28% 90%;
+    --sidebar-accent-foreground: 220 20% 16%;
+    --sidebar-border: 30 20% 84%;
+    --sidebar-ring: 197 82% 42%;
+
+    --chart-bar: 197 82% 42%;
+    --chart-line: 24 90% 60%;
+
+    --chart-1: 197 82% 42%;
+    --chart-2: 24 90% 60%;
+    --chart-3: 160 60% 45%;
+    --chart-4: 280 60% 50%;
+    --chart-5: 48 96% 53%;
+  }
+
+  .dark {
+    --background: 216 28% 10%;
+    --foreground: 38 24% 92%;
+
+    --card: 218 24% 13%;
+    --card-foreground: 38 24% 92%;
+
+    --popover: 218 24% 13%;
+    --popover-foreground: 38 24% 92%;
+
+    --primary: 192 85% 56%;
+    --primary-foreground: 216 28% 10%;
+
+    --secondary: 220 18% 18%;
+    --secondary-foreground: 38 24% 92%;
+
+    --muted: 220 18% 16%;
+    --muted-foreground: 216 14% 64%;
+
+    --accent: 21 93% 61%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 18% 24%;
+    --input: 220 18% 24%;
+    --ring: 192 85% 56%;
+
+    --sidebar-background: 218 28% 11%;
+    --sidebar-foreground: 38 24% 92%;
+    --sidebar-primary: 192 85% 56%;
+    --sidebar-primary-foreground: 216 28% 10%;
+    --sidebar-accent: 220 18% 18%;
+    --sidebar-accent-foreground: 38 24% 92%;
+    --sidebar-border: 220 18% 22%;
+    --sidebar-ring: 192 85% 56%;
+
+    --chart-bar: 192 85% 56%;
+    --chart-line: 21 93% 61%;
+
+    --chart-1: 192 85% 56%;
+    --chart-2: 21 93% 61%;
+    --chart-3: 160 60% 55%;
+    --chart-4: 280 60% 60%;
+    --chart-5: 48 96% 63%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  body.bg-gradient-mesh {
+    background-image:
+      radial-gradient(circle at top left, hsl(var(--primary) / 0.16), transparent 28%),
+      radial-gradient(circle at bottom right, hsl(var(--accent) / 0.16), transparent 24%),
+      linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
+    background-attachment: fixed;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+/* Keep Leaflet map below the sticky navbar (z-40 = 40) */
+.leaflet-container {
+  z-index: 0;
+}
