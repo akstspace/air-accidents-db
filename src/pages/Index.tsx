@@ -62,9 +62,9 @@ export default function Index() {
     const idleMessage = isSearchSetup ? 'Preparing semantic search' : 'Preparing data';
     return (
       <div className="flex h-screen items-center justify-center bg-background">
-        <div className="flex w-full max-w-sm flex-col gap-3 rounded-xl border p-5">
+        <div className="flex w-full max-w-sm flex-col gap-3 rounded-lg border border-border bg-card p-5">
           <div className="flex items-center gap-3">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <Loader2 className="h-8 w-8 animate-spin text-accent" />
             <div>
               <p className="text-sm font-medium text-foreground">
                 {isSearchSetup ? 'Setting up search...' : 'Loading accident database...'}
@@ -94,26 +94,27 @@ export default function Index() {
       className="min-h-screen"
     >
       <TopNav />
-      <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-3">
+      <main className="mx-auto flex w-full max-w-screen-2xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-3 border-b border-border pb-4">
           <div>
-            <p className="text-sm font-medium text-foreground">{filteredAccidents.length.toLocaleString()} visible accidents</p>
-            <p className="text-xs text-muted-foreground">Dashboard filters are available in the collapsible sidebar.</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Dashboard</p>
+            <p className="text-lg font-bold tracking-[-0.02em] text-foreground">{filteredAccidents.length.toLocaleString()} visible accidents</p>
+            <p className="text-sm text-muted-foreground">Dashboard filters are available in the collapsible sidebar.</p>
           </div>
           <div className="flex items-center gap-2">
             {!databaseStatus.loaded && (
-              <Button variant="secondary" className="rounded-full" onClick={() => setShowImportDialog(true)}>
+              <Button variant="secondary" onClick={() => setShowImportDialog(true)}>
                 Import JSONL
               </Button>
             )}
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="outline" className="rounded-full">
+                <Button variant="outline">
                   <Filter className="h-4 w-4" />
                   Filters
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-full max-w-sm border-r border-border/60 bg-background/95 p-0">
+              <SheetContent side="left" className="w-full max-w-sm border-r border-border bg-background p-0">
                 <SheetHeader className="px-6 py-5">
                   <SheetTitle>Filters</SheetTitle>
                   <SheetDescription>Refine the dashboard dataset while keeping the map in view.</SheetDescription>

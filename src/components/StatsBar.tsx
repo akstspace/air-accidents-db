@@ -16,10 +16,10 @@ export default function StatsBar() {
   }, [filteredAccidents]);
 
   const items = [
-    { icon: AlertTriangle, label: 'Matched Incidents', value: stats.totalIncidents.toLocaleString(), color: 'text-severity-incident' },
-    { icon: Skull, label: 'Total Fatalities', value: stats.totalFatalities.toLocaleString(), color: 'text-severity-fatal' },
-    { icon: Plane, label: 'Fatal Crashes', value: stats.fatalCount.toLocaleString(), color: 'text-severity-serious' },
-    { icon: Users, label: 'Aircraft Types', value: stats.uniqueAircraft.toLocaleString(), color: 'text-primary' },
+    { icon: AlertTriangle, label: 'Matched Incidents', value: stats.totalIncidents.toLocaleString(), color: 'text-severity-incident', surface: 'bg-[hsl(var(--severity-incident)/0.12)]' },
+    { icon: Skull, label: 'Total Fatalities', value: stats.totalFatalities.toLocaleString(), color: 'text-severity-fatal', surface: 'bg-[hsl(var(--severity-fatal)/0.12)]' },
+    { icon: Plane, label: 'Fatal Crashes', value: stats.fatalCount.toLocaleString(), color: 'text-severity-serious', surface: 'bg-[hsl(var(--severity-serious)/0.12)]' },
+    { icon: Users, label: 'Aircraft Types', value: stats.uniqueAircraft.toLocaleString(), color: 'text-foreground', surface: 'bg-secondary' },
   ];
 
   return (
@@ -31,14 +31,14 @@ export default function StatsBar() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: index * 0.06 }}
         >
-          <Card>
+          <Card className="bg-background">
             <CardContent className="flex items-center gap-4 p-4">
-              <div className={`rounded-xl bg-muted p-2.5 ${item.color}`}>
+              <div className={`rounded-md border border-border p-2.5 ${item.surface} ${item.color}`}>
                 <item.icon className="h-4 w-4" />
               </div>
               <div>
-                <p className="text-2xl font-semibold tracking-tight text-foreground">{item.value}</p>
-                <p className="text-[11px] uppercase tracking-wider text-muted-foreground">{item.label}</p>
+                <p className="text-[30px] font-extrabold leading-none tracking-[-0.04em] text-foreground">{item.value}</p>
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{item.label}</p>
               </div>
             </CardContent>
           </Card>

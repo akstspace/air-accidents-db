@@ -54,7 +54,7 @@ export default function DownloadEmbeddingsDialog({
             <DialogContent className="max-w-md">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <Sparkles className="h-5 w-5 text-primary" />
+                        <Sparkles className="h-5 w-5 text-accent" />
                         Download Embeddings
                     </DialogTitle>
                     <DialogDescription>
@@ -69,7 +69,7 @@ export default function DownloadEmbeddingsDialog({
                         className="space-y-3"
                         disabled={downloading || isRunning}
                     >
-                        <div className="flex items-center space-x-3 rounded-lg border p-3 hover:bg-muted/50">
+                        <div className="flex items-center space-x-3 rounded-md border border-border bg-background p-3 hover:bg-muted/50">
                             <RadioGroupItem value="minilm" id="minilm" />
                             <div className="flex-1 space-y-1">
                                 <Label htmlFor="minilm" className="font-medium cursor-pointer">
@@ -81,7 +81,7 @@ export default function DownloadEmbeddingsDialog({
                             </div>
                         </div>
 
-                        <div className="flex items-center space-x-3 rounded-lg border p-3 hover:bg-muted/50">
+                        <div className="flex items-center space-x-3 rounded-md border border-border bg-background p-3 hover:bg-muted/50">
                             <RadioGroupItem value="gemma" id="gemma" />
                             <div className="flex-1 space-y-1">
                                 <Label htmlFor="gemma" className="font-medium cursor-pointer">

@@ -27,7 +27,7 @@ function getSeverityDotClass(severity: SeverityType) {
 function FilterSection({ title, children, defaultOpen = true }: Readonly<{ title: string; children: React.ReactNode; defaultOpen?: boolean }>) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="border-b border-border/60 pb-4 last:border-b-0 last:pb-0">
+    <div className="border-b border-border pb-4 last:border-b-0 last:pb-0">
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -71,7 +71,7 @@ export default function FilterSidebar({ className }: Readonly<{ className?: stri
   };
 
   return (
-    <Card className={cn('', className)}>
+    <Card className={cn('overflow-hidden', className)}>
       <CardHeader className="space-y-4">
         <div className="flex items-start justify-between gap-3">
           <div>
@@ -93,7 +93,7 @@ export default function FilterSidebar({ className }: Readonly<{ className?: stri
       <CardContent>
         <div className="space-y-4">
           <FilterSection title="Aircraft Type">
-            <ScrollArea className="h-64 rounded-xl border border-border/60 bg-background/50 p-3">
+            <ScrollArea className="h-64 rounded-lg border border-border bg-background p-3">
               <div className="space-y-3 pr-4">
                 {allAircraftTypes.map((t) => (
                   <label key={t} className="flex cursor-pointer items-start gap-3 text-sm text-foreground">

@@ -166,9 +166,10 @@ export default function Settings() {
       className="min-h-screen"
     >
       <TopNav />
-      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
+      <main className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Settings</p>
+          <h1 className="text-[30px] font-extrabold tracking-[-0.03em]">Settings</h1>
           <p className="text-sm text-muted-foreground">
             Manage data import and browser-based semantic search.
           </p>
@@ -178,7 +179,7 @@ export default function Settings() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <Database className="h-4 w-4 text-primary" />
+                <Database className="h-4 w-4 text-accent" />
                 Data Store
               </CardTitle>
               <CardDescription>
@@ -199,13 +200,13 @@ export default function Settings() {
               </div>
 
               {!databaseStatus.semanticSearchAvailable && databaseStatus.semanticSearchReason && (
-                <div className="rounded-xl border border-border/40 bg-muted/30 p-4 text-sm text-muted-foreground">
+                <div className="rounded-lg border border-border bg-secondary/50 p-4 text-sm text-muted-foreground">
                   {databaseStatus.semanticSearchReason}
                 </div>
               )}
 
               {shouldShowProgressAlert ? (
-                <Alert className="border-border/40 bg-muted/30">
+                <Alert>
                   <Button
                     type="button"
                     variant="ghost"
@@ -235,7 +236,7 @@ export default function Settings() {
                 </Alert>
               ) : null}
 
-              <div className="rounded-xl border border-border/40 bg-muted/30 p-4 text-sm text-muted-foreground">
+              <div className="rounded-lg border border-border bg-secondary/50 p-4 text-sm text-muted-foreground">
                 <p>
                   Last refreshed:{' '}
                   <span className="font-medium text-foreground">
@@ -244,15 +245,15 @@ export default function Settings() {
                 </p>
               </div>
 
-              <div className="space-y-4 rounded-xl border border-border/60 p-4">
+              <div className="space-y-4 rounded-lg border border-border p-4">
                 <div className="flex items-center gap-2">
-                  <FileSpreadsheet className="h-4 w-4 text-primary" />
+                  <FileSpreadsheet className="h-4 w-4 text-accent" />
                   <p className="text-sm font-medium text-foreground">Import Source</p>
                 </div>
                 <div className="grid gap-4 lg:grid-cols-2">
-                  <div className="space-y-3 rounded-xl border border-border/60 bg-muted/30 p-4">
+                  <div className="space-y-3 rounded-lg border border-border bg-secondary/50 p-4">
                     <div className="flex items-center gap-2">
-                      <FileUp className="h-4 w-4 text-primary" />
+                      <FileUp className="h-4 w-4 text-accent" />
                       <p className="text-sm font-medium text-foreground">Local JSONL file</p>
                     </div>
                     <p className="text-xs text-muted-foreground">
@@ -287,9 +288,9 @@ export default function Settings() {
                     </div>
                   </div>
 
-                  <div className="space-y-3 rounded-xl border border-border/60 bg-muted/30 p-4">
+                  <div className="space-y-3 rounded-lg border border-border bg-secondary/50 p-4">
                     <div className="flex items-center gap-2">
-                      <Globe className="h-4 w-4 text-primary" />
+                      <Globe className="h-4 w-4 text-accent" />
                       <p className="text-sm font-medium text-foreground">Remote JSONL URL</p>
                     </div>
                     <div className="space-y-2">
@@ -331,7 +332,7 @@ export default function Settings() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Brain className="h-5 w-5 text-primary" />
+                <Brain className="h-5 w-5 text-accent" />
                 Browser Embeddings
               </CardTitle>
               <CardDescription>
@@ -339,7 +340,7 @@ export default function Settings() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
-              <div className="space-y-3 rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="space-y-3 rounded-lg border border-border bg-secondary/50 p-4">
                 <p className="text-sm font-medium text-foreground">Browser Model</p>
                 <div className="space-y-2">
                   <Label htmlFor="browser-model">ONNX Model</Label>
@@ -360,7 +361,7 @@ export default function Settings() {
                     ) : null;
                   })()}
                 </div>
-                <div className="rounded-lg border border-border/50 bg-background/60 p-3 text-xs text-muted-foreground">
+                <div className="rounded-md border border-border bg-background p-3 text-xs text-muted-foreground">
                   {draftDimensions}-dimensional vectors will be generated for search.
                 </div>
               </div>
@@ -380,7 +381,7 @@ export default function Settings() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Download className="h-4 w-4 text-primary" />
+              <Download className="h-4 w-4 text-accent" />
               Embeddings
             </CardTitle>
             <CardDescription>

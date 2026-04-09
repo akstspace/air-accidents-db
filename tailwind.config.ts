@@ -9,10 +9,27 @@ export default {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1536px",
       },
     },
     extend: {
+      fontFamily: {
+        sans: [
+          "IBM Plex Sans",
+          "-apple-system",
+          "system-ui",
+          "Avenir Next",
+          "Avenir",
+          "Segoe UI",
+          "Helvetica Neue",
+          "Helvetica",
+          "Ubuntu",
+          "Roboto",
+          "Noto",
+          "Arial",
+          "sans-serif",
+        ],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -67,10 +84,13 @@ export default {
           line: "hsl(var(--chart-line))",
         },
       },
+      boxShadow: {
+        floating: "var(--shadow-floating)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        sm: "2px",
       },
       keyframes: {
         "accordion-down": {

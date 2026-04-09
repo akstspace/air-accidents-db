@@ -28,7 +28,7 @@ const PIE_COLORS = [
   'hsl(var(--chart-3))',
   'hsl(var(--chart-4))',
   'hsl(var(--chart-5))',
-  'hsl(280 60% 50%)',
+  'hsl(var(--muted-foreground))',
 ];
 
 export function AircraftTypeChart() {
@@ -53,16 +53,16 @@ export function AircraftTypeChart() {
       transition={{ duration: 0.4, delay: 0.1 }}
     >
       <Card>
-        <CardHeader className="pb-2 pt-4 px-4">
+        <CardHeader className="border-b border-border bg-secondary/45 px-4 pb-3 pt-4">
           <CardTitle className="text-sm font-medium">Crashes by Aircraft Type</CardTitle>
           <CardDescription className="text-xs">Top 6 aircraft types</CardDescription>
         </CardHeader>
         <CardContent className="px-2 pb-3">
           <ChartContainer config={barConfig} className="h-[180px] w-full">
             <BarChart accessibilityLayer data={data} margin={{ top: 4, right: 4, bottom: 0, left: -16 }}>
-              <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-muted/30" />
-              <XAxis dataKey="name" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+              <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-border/60" />
+              <XAxis dataKey="name" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar dataKey="count" fill="var(--color-count)" radius={[4, 4, 0, 0]} />
             </BarChart>
@@ -95,7 +95,7 @@ export function CausesChart() {
       transition={{ duration: 0.4, delay: 0.15 }}
     >
       <Card>
-        <CardHeader className="pb-2 pt-4 px-4">
+        <CardHeader className="border-b border-border bg-secondary/45 px-4 pb-3 pt-4">
           <CardTitle className="text-sm font-medium">Primary Causes</CardTitle>
           <CardDescription className="text-xs">Categorised from investigation text</CardDescription>
         </CardHeader>
@@ -160,16 +160,16 @@ export function AnnualCrashesChart() {
       transition={{ duration: 0.4, delay: 0.2 }}
     >
       <Card>
-        <CardHeader className="pb-2 pt-4 px-4">
+        <CardHeader className="border-b border-border bg-secondary/45 px-4 pb-3 pt-4">
           <CardTitle className="text-sm font-medium">Annual Air Incidents</CardTitle>
           <CardDescription className="text-xs">Fatal incidents in red, other incidents in orange</CardDescription>
         </CardHeader>
         <CardContent className="px-2 pb-3">
           <ChartContainer config={annualIncidentsConfig} className="h-[220px] w-full">
             <BarChart accessibilityLayer data={data} margin={{ top: 4, right: 4, bottom: 0, left: -16 }}>
-              <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-muted/30" />
-              <XAxis dataKey="year" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+              <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-border/60" />
+              <XAxis dataKey="year" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
               <ChartTooltip content={<ChartTooltipContent />} />
               <ChartLegend content={<ChartLegendContent />} />
               <Bar dataKey="fatal" stackId="incidents" fill="var(--color-fatal)" radius={[0, 0, 0, 0]} />

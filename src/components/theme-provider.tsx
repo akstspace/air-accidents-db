@@ -3,7 +3,13 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 export function ThemeProvider({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+      themes={['light', 'dark', 'chai']}
+    >
       {children}
     </NextThemesProvider>
   );

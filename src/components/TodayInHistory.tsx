@@ -144,13 +144,13 @@ export default function TodayInHistory() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.12 }}
     >
-      <Card className="overflow-hidden border-border/70 bg-card/90">
-        <CardHeader className="border-b border-border/50 bg-muted/20">
+      <Card className="overflow-hidden bg-card">
+        <CardHeader className="border-b border-border bg-secondary/55">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-primary">
-                <CalendarDays className="h-4 w-4" />
-                <span className="text-xs font-semibold uppercase tracking-[0.24em]">Today in History</span>
+              <div className="flex items-center gap-2 text-foreground">
+                <CalendarDays className="h-4 w-4 text-accent" />
+                <span className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Today in History</span>
               </div>
               <CardTitle className="mt-2 text-xl">{todayLabel}</CardTitle>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -159,7 +159,7 @@ export default function TodayInHistory() {
                   : 'No archived accidents match today’s date in the current dataset.'}
               </p>
             </div>
-            <div className="hidden rounded-2xl border border-border/60 bg-background/80 p-3 sm:flex">
+            <div className="hidden rounded-lg border border-border bg-background p-3 sm:flex">
               <Plane className="h-5 w-5 text-accent" />
             </div>
           </div>
@@ -167,7 +167,7 @@ export default function TodayInHistory() {
 
         <CardContent className="p-4 sm:p-5">
           {featured.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-border/70 bg-muted/20 px-4 py-8 text-center">
+            <div className="rounded-lg border border-dashed border-border bg-secondary/40 px-4 py-8 text-center">
               <p className="text-sm font-medium text-foreground">Nothing surfaced for {todayLabel}.</p>
               <p className="mt-1 text-sm text-muted-foreground">
                 Try changing the dataset source if you want to compare against a different archive snapshot.
@@ -185,7 +185,7 @@ export default function TodayInHistory() {
                     key={accident.id}
                     type="button"
                     onClick={() => setSelectedAccident(accident)}
-                    className="group rounded-2xl border border-border/60 bg-background/80 p-4 text-left transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-background"
+                    className="group rounded-lg border border-border bg-background p-4 text-left transition-colors hover:border-accent hover:bg-[hsl(var(--background))]"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
@@ -207,7 +207,7 @@ export default function TodayInHistory() {
                         {accident.operator && accident.site && <span>•</span>}
                         {accident.site && <span className="line-clamp-1">{accident.site}</span>}
                       </div>
-                      <span className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-sm font-medium text-primary transition-colors group-hover:bg-primary/10">
+                      <span className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-sm font-medium text-foreground transition-colors group-hover:bg-muted group-hover:text-accent">
                         View
                         <ChevronRight className="h-4 w-4" />
                       </span>

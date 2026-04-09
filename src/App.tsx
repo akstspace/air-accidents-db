@@ -12,29 +12,11 @@ import Settings from "./pages/Settings.tsx";
 
 const queryClient = new QueryClient();
 
-import { useEffect } from "react";
-import { useDashboard } from "@/contexts/DashboardContext";
-
-const BodyBackgroundManager = () => {
-  const { databaseStatus } = useDashboard();
-
-  useEffect(() => {
-    if (databaseStatus.loaded) {
-      document.body.classList.remove("bg-gradient-mesh");
-    } else {
-      document.body.classList.add("bg-gradient-mesh");
-    }
-  }, [databaseStatus.loaded]);
-
-  return null;
-};
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <TooltipProvider>
         <DashboardProvider>
-          <BodyBackgroundManager />
           <Sonner />
           <BrowserRouter>
             <AnimatePresence mode="wait">
@@ -53,4 +35,3 @@ const App = () => (
 );
 
 export default App;
-

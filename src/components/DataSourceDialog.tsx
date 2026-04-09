@@ -72,7 +72,7 @@ export default function DataSourceDialog({
           event.preventDefault();
         }
       }}>
-        <div className="border-b border-border/60 px-6 py-5">
+        <div className="border-b border-border px-6 py-5">
           <DialogHeader>
             <DialogTitle>Import accident data</DialogTitle>
             <DialogDescription>
@@ -83,12 +83,12 @@ export default function DataSourceDialog({
 
         <div className="space-y-5 px-6 py-5">
           <Tabs defaultValue={initialUrl ? 'url' : 'file'} className="space-y-4">
-            <TabsList className="grid w-full grid-cols-2 rounded-xl bg-muted/70">
-              <TabsTrigger value="file" className="rounded-lg">Local JSONL File</TabsTrigger>
-              <TabsTrigger value="url" className="rounded-lg">Remote URL</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="file">Local JSONL File</TabsTrigger>
+              <TabsTrigger value="url">Remote URL</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="file" className="space-y-4 rounded-2xl border border-border/60 bg-card/70 p-4">
+            <TabsContent value="file" className="space-y-4 rounded-lg border border-border bg-card p-4">
               <div className="space-y-2">
                 <p className="text-sm font-medium text-foreground">Browser file picker</p>
                 <p className="text-sm text-muted-foreground">
@@ -106,13 +106,13 @@ export default function DataSourceDialog({
                 }}
               />
 
-              <Button type="button" className="w-full rounded-xl" disabled={busy} onClick={() => fileInputRef.current?.click()}>
+              <Button type="button" className="w-full" disabled={busy} onClick={() => fileInputRef.current?.click()}>
                 {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileUp className="h-4 w-4" />}
                 Choose JSONL File
               </Button>
             </TabsContent>
 
-            <TabsContent value="url" className="space-y-4 rounded-2xl border border-border/60 bg-card/70 p-4">
+            <TabsContent value="url" className="space-y-4 rounded-lg border border-border bg-card p-4">
               <div className="space-y-2">
                 <Label htmlFor="jsonl-url">JSONL URL</Label>
                 <Input
@@ -125,7 +125,7 @@ export default function DataSourceDialog({
 
               <Button
                 type="button"
-                className="w-full rounded-xl"
+                className="w-full"
                 disabled={busy || urlValue.trim().length === 0}
                 onClick={() => {
                   void handleImportFromUrl();
@@ -138,14 +138,14 @@ export default function DataSourceDialog({
           </Tabs>
 
           {statusMessage && (
-            <div className="rounded-xl border border-border/60 bg-muted/50 px-4 py-3 text-sm text-muted-foreground">
+            <div className="rounded-lg border border-border bg-secondary/50 px-4 py-3 text-sm text-muted-foreground">
               {statusMessage}
             </div>
           )}
         </div>
 
         {!required && (
-          <DialogFooter className="border-t border-border/60 px-6 py-4">
+          <DialogFooter className="border-t border-border px-6 py-4">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>

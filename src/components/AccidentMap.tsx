@@ -8,9 +8,9 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const SEVERITY_COLORS: Record<string, string> = {
-  fatal: '#ef4444',
-  serious: '#f97316',
-  incident: '#eab308',
+  fatal: '#8b3d2f',
+  serious: '#c94b1f',
+  incident: '#d4920a',
 };
 
 type AccidentMapProps = {
@@ -19,7 +19,8 @@ type AccidentMapProps = {
 
 export default function AccidentMap({ variant = 'dashboard' }: Readonly<AccidentMapProps>) {
   const { filteredAccidents, setSelectedAccident } = useDashboard();
-  const { resolvedTheme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const effectiveTheme = theme === 'chai' ? 'chai' : resolvedTheme === 'dark' ? 'dark' : 'light';
   const title = variant === 'search' ? 'Search Result Map' : 'Global Accident Map';
   const description = variant === 'search'
     ? 'Geographic clustering for the currently matched semantic search results.'
@@ -50,17 +51,22 @@ export default function AccidentMap({ variant = 'dashboard' }: Readonly<Accident
         <Badge variant="secondary">{markers.length.toLocaleString()} markers</Badge>
       </CardHeader>
       <CardContent>
-        <div className="relative overflow-hidden rounded-2xl border border-border/60" style={{ minHeight: 420, height: '100%' }}>
+        <div className="relative overflow-hidden rounded-lg border border-border" style={{ minHeight: 420, height: '100%' }}>
           <MapContainer
             center={[20, 0]}
             zoom={2}
-            style={{ width: '100%', height: '100%', minHeight: 420, background: resolvedTheme === 'light' ? 'hsl(42 60% 96%)' : 'hsl(220 25% 10%)' }}
+            style={{
+              width: '100%',
+              height: '100%',
+              minHeight: 420,
+              background: effectiveTheme === 'light' ? '#f3eee4' : effectiveTheme === 'chai' ? '#221a13' : '#111827',
+            }}
             zoomControl
             scrollWheelZoom
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-              url={resolvedTheme === 'light'
+              url={effectiveTheme === 'light'
                 ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
                 : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'}
             />

@@ -39,7 +39,7 @@ export default function AccidentDetail() {
 
   return (
     <Sheet open={Boolean(selectedAccident)} onOpenChange={(open) => !open && setSelectedAccident(null)}>
-      <SheetContent side="right" className="flex w-full flex-col border-l border-border/40 p-0 sm:max-w-xl">
+      <SheetContent side="right" className="flex w-full flex-col border-l border-border p-0 sm:max-w-xl">
         {selectedAccident && (
           (() => {
             const a = selectedAccident;
@@ -52,7 +52,7 @@ export default function AccidentDetail() {
 
             return (
               <>
-                <SheetHeader className="shrink-0 border-b border-border/40 px-6 py-4 text-left">
+                <SheetHeader className="shrink-0 border-b border-border px-6 py-4 text-left">
                   <div className="flex items-center gap-2">
                     <Badge
                       variant="outline"
@@ -71,7 +71,7 @@ export default function AccidentDetail() {
 
                 <ScrollArea className="flex-1">
                   <div className="space-y-5 px-6 py-5">
-                    <Card className="bg-muted/30">
+                    <Card className="bg-secondary/45">
                       <CardContent className="grid grid-cols-3 gap-2 p-3 text-center">
                         {[
                           ['Fatalities', a.total_fatalities],
@@ -87,7 +87,7 @@ export default function AccidentDetail() {
                     </Card>
 
                     {(a.total_ground_fatalities > 0 || a.total_ground_injuries > 0) && (
-                      <Card className="bg-muted/20">
+                      <Card className="bg-secondary/35">
                         <CardContent className="grid grid-cols-2 gap-3 p-3 text-center">
                           {[
                             ['Ground Fatalities', a.total_ground_fatalities],
@@ -133,7 +133,7 @@ export default function AccidentDetail() {
                         ]
                           .filter(([, value]) => value)
                           .map(([label, value]) => (
-                            <div key={String(label)} className="rounded-lg border border-border/40 bg-muted/20 p-3">
+                            <div key={String(label)} className="rounded-md border border-border bg-secondary/35 p-3">
                               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</p>
                               <p className="mt-1 text-sm">{value}</p>
                             </div>
@@ -150,7 +150,7 @@ export default function AccidentDetail() {
                               key={`${img.full_src}-${img.image_index}`}
                               src={img.src}
                               alt={img.alt || img.caption}
-                              className="aspect-[4/3] w-full rounded-lg border border-border/40 object-cover"
+                              className="aspect-[4/3] w-full rounded-md border border-border object-cover"
                               loading="lazy"
                             />
                           ))}
@@ -163,7 +163,7 @@ export default function AccidentDetail() {
                         href={a.wikipedia_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent hover:underline"
                       >
                         View on Wikipedia <ExternalLink className="h-3.5 w-3.5" />
                       </a>

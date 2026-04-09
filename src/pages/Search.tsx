@@ -70,7 +70,7 @@ function SearchFilters() {
   return (
     <div className="flex flex-wrap items-center gap-1.5">
       {/* Year range */}
-      <div className="flex items-center gap-1.5 rounded-lg border border-border/40 px-2.5 py-1.5 text-sm">
+      <div className="flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1.5 text-sm">
         <CalendarRange className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
         <Input
           type="number"
@@ -94,11 +94,11 @@ function SearchFilters() {
       {/* Aircraft type */}
       <Popover open={aircraftOpen} onOpenChange={setAircraftOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="sm" className="h-8 rounded-lg text-xs">
+          <Button variant="outline" size="sm" className="h-8 text-xs">
             <Plane className="mr-1 h-3.5 w-3.5" />
             Aircraft
             {filters.aircraftTypes.length > 0 && (
-              <Badge variant="secondary" className="ml-1.5 rounded-full px-1.5 py-0 text-[0.65rem]">
+              <Badge variant="secondary" className="ml-1.5 px-1.5 py-0 text-[0.65rem]">
                 {filters.aircraftTypes.length}
               </Badge>
             )}
@@ -138,10 +138,10 @@ function SearchFilters() {
           type="button"
           onClick={() => toggleSeverity(s)}
           className={cn(
-            'flex h-8 items-center gap-1.5 rounded-lg border px-2.5 text-xs transition-colors',
+            'flex h-8 items-center gap-1.5 rounded-md border px-2.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors',
             filters.severities.includes(s)
-              ? 'border-border bg-accent text-accent-foreground'
-              : 'border-border/40 text-muted-foreground hover:bg-muted/50',
+              ? 'border-accent bg-secondary text-foreground'
+              : 'border-border text-muted-foreground hover:bg-muted/50 hover:text-accent',
           )}
         >
           <span className={cn('h-2 w-2 rounded-full', SEVERITY_DOT[s])} />
@@ -150,7 +150,7 @@ function SearchFilters() {
       ))}
 
       {!isDefault && (
-        <Button variant="ghost" size="sm" onClick={resetFilters} className="h-8 rounded-lg text-xs text-muted-foreground">
+        <Button variant="ghost" size="sm" onClick={resetFilters} className="h-8 text-xs text-muted-foreground">
           <RotateCcw className="mr-1 h-3 w-3" />
           Reset
         </Button>
@@ -257,9 +257,9 @@ export default function Search() {
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
-        <div className="flex w-full max-w-sm flex-col gap-3 rounded-xl border p-5">
+        <div className="flex w-full max-w-sm flex-col gap-3 rounded-lg border border-border bg-card p-5">
           <div className="flex items-center gap-3">
-            <Loader2 className="h-5 w-5 animate-spin text-primary" />
+            <Loader2 className="h-5 w-5 animate-spin text-accent" />
             <div>
               <p className="text-sm font-medium">Loading database…</p>
               <p className="text-xs text-muted-foreground">{databaseProgress.message}</p>
@@ -285,7 +285,7 @@ export default function Search() {
       className="min-h-screen"
     >
       <TopNav />
-      <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
+      <main className="mx-auto flex w-full max-w-screen-2xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <section
           className={cn(
             'relative flex flex-col justify-center transition-all duration-500 ease-out',
@@ -299,7 +299,7 @@ export default function Search() {
             }}
             className={cn('mx-auto w-full transition-all duration-500', hasSearchSession ? 'max-w-5xl' : 'max-w-2xl')}
           >
-            <div className="rounded-xl border border-border/40 bg-background p-1.5 transition-colors focus-within:border-border">
+            <div className="rounded-lg border border-border bg-background p-1.5 transition-colors focus-within:border-accent">
               <div className="flex items-center gap-1.5">
                 <div className="relative flex-1">
                   <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -311,7 +311,7 @@ export default function Search() {
                     className="h-11 border-0 bg-transparent pl-10 text-sm shadow-none focus-visible:ring-0"
                   />
                 </div>
-                <Button type="submit" size="sm" className="h-9 rounded-lg px-4" disabled={!databaseStatus.semanticSearchAvailable}>
+                <Button type="submit" size="sm" className="h-9 px-4" disabled={!databaseStatus.semanticSearchAvailable}>
                   {searching ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : null}
                   Search
                 </Button>
@@ -320,7 +320,7 @@ export default function Search() {
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="h-9 rounded-lg px-3 text-muted-foreground"
+                    className="h-9 px-3 text-muted-foreground"
                     onClick={() => {
                       setDraftQuery('');
                       runSearch('');
@@ -334,9 +334,9 @@ export default function Search() {
           </form>
 
           <div className={cn('mx-auto w-full transition-all duration-500', hasSearchSession ? 'max-w-5xl' : 'max-w-2xl')}>
-            <div className="flex items-center gap-1.5 pb-1">
+            <div className="flex items-center gap-1.5 border-b border-border pb-2">
               <SlidersHorizontal className="h-3 w-3 text-muted-foreground" />
-              <span className="text-[11px] text-muted-foreground">Filters</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Filters</span>
             </div>
             <SearchFilters />
           </div>
@@ -370,7 +370,7 @@ export default function Search() {
                     type="button"
                     variant="outline"
                     size="sm"
-                    className="rounded-full text-xs"
+                    className="text-xs"
                     onClick={() => {
                       setDraftQuery(prompt);
                       runSearch(prompt);
@@ -383,7 +383,7 @@ export default function Search() {
               </div>
 
               {!databaseStatus.loaded && (
-                <Button type="button" variant="secondary" size="sm" className="rounded-full" onClick={() => setShowImportDialog(true)}>
+                <Button type="button" variant="secondary" size="sm" onClick={() => setShowImportDialog(true)}>
                   Import JSONL to start searching
                 </Button>
               )}
@@ -398,8 +398,8 @@ export default function Search() {
             transition={{ duration: 0.3 }}
             className="space-y-4 pb-8"
           >
-            <div className="flex items-baseline gap-2">
-              <h3 className="text-lg font-semibold tracking-tight">{committedQuery}</h3>
+            <div className="flex items-baseline gap-2 border-b border-border pb-2">
+              <h3 className="text-lg font-bold tracking-[-0.02em]">{committedQuery}</h3>
               {!searching && (
                 <span className="text-xs text-muted-foreground">{filteredAccidents.length.toLocaleString()} results</span>
               )}

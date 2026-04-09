@@ -45,13 +45,13 @@ export default function RecentIncidents() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.08 }}
     >
-      <Card className="overflow-hidden border-border/70 bg-card/90">
-        <CardHeader className="border-b border-border/50 bg-muted/20">
+      <Card className="overflow-hidden bg-card">
+        <CardHeader className="border-b border-border bg-secondary/55">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-primary">
-                <Clock3 className="h-4 w-4" />
-                <span className="text-xs font-semibold uppercase tracking-[0.24em]">Recent Incidents</span>
+              <div className="flex items-center gap-2 text-foreground">
+                <Clock3 className="h-4 w-4 text-accent" />
+                <span className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Recent Incidents</span>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
                 A quick look at the most recent aviation accidents available in the current dataset.
@@ -71,7 +71,7 @@ export default function RecentIncidents() {
                 key={accident.id}
                 type="button"
                 onClick={() => setSelectedAccident(accident)}
-                className="group rounded-2xl border border-border/60 bg-background/80 p-4 text-left transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-background"
+                className="group rounded-lg border border-border bg-background p-4 text-left transition-colors hover:border-accent hover:bg-[hsl(var(--background))]"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
@@ -93,7 +93,7 @@ export default function RecentIncidents() {
                     {accident.operator && accident.site && <span>•</span>}
                     {accident.site && <span className="line-clamp-1">{accident.site}</span>}
                   </div>
-                  <span className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-sm font-medium text-primary transition-colors group-hover:bg-primary/10">
+                  <span className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-sm font-medium text-foreground transition-colors group-hover:bg-muted group-hover:text-accent">
                     View
                     <ChevronRight className="h-4 w-4" />
                   </span>
