@@ -8,7 +8,7 @@ export function ThemeProvider({ children }: Readonly<{ children: React.ReactNode
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
-      themes={['light', 'dark', 'chai']}
+      themes={['light', 'dark']}
     >
       {children}
     </NextThemesProvider>

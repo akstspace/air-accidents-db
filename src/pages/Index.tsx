@@ -97,7 +97,7 @@ export default function Index() {
       <main className="mx-auto flex w-full max-w-screen-2xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-3 border-b border-border pb-4">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Dashboard</p>
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Dashboard</p>
             <p className="text-lg font-bold tracking-[-0.02em] text-foreground">{filteredAccidents.length.toLocaleString()} visible accidents</p>
             <p className="text-sm text-muted-foreground">Dashboard filters are available in the collapsible sidebar.</p>
           </div>

@@ -19,7 +19,7 @@ export default function TopNav() {
             <Plane className="h-4 w-4" />
           </div>
           <div>
-            <p className="truncate text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Archive</p>
+            <p className="truncate font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Archive</p>
             <h1 className="truncate text-base font-bold tracking-[-0.02em]">Air Accidents DB</h1>
           </div>
         </div>

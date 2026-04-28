@@ -1,0 +1,293 @@
+schemaVersion: "1.0"
+lastUpdated: 2026-04-28T20:33:08.272Z
+application:
+  name: Air Accidents DB
+  description: ""
+  websiteUrl: null
+  iconUrl: null
+preset:
+  name: Indigo
+  notes: ""
+  colors:
+    text: "#1E1B4B"
+    neutral: "#F5F5FA"
+    primary: "#1E1B4B"
+    tertiary: "#6366F1"
+    secondary: "#6B6A8C"
+  shadow:
+    sm: 0 1px 2px 0 rgb(0 0 0 / 0.05)
+    md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)
+    lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)
+  rounded:
+    none: 0px
+    sm: 5px
+    md: 9px
+    lg: 14px
+    xl: 18px
+    full: 9999px
+  spacing:
+    xs: 4px
+    sm: 8px
+    md: 15px
+    lg: 24px
+    xl: 34px
+  overview: Studio violet with cool ink.
+  semantic:
+    ring: "#6366F1"
+    brand:
+      background: "#1E1B4B"
+      foreground: "#f5f5f5"
+    input: "#cccbd9"
+    muted: "#b0b0c3"
+    accent:
+      background: "#6366F1"
+      foreground: "#f5f5f5"
+    border: "#d3d2df"
+    surface:
+      default: "#F5F5FA"
+      overlay: rgba(0,0,0,0.4)
+      elevated: "#ffffff"
+    feedback:
+      info: "#2563eb"
+      error: "#dc2626"
+      success: "#16a34a"
+      warning: "#d97706"
+    background: "#ffffff"
+    foreground: "#1E1B4B"
+    mutedForeground: "#6B6A8C"
+  paletteId: indigo
+  themeMode: light
+  colorsDark:
+    text: "#F5F5FA"
+    neutral: "#0E0C2A"
+    primary: "#F5F5FA"
+    tertiary: "#A5B4FC"
+    secondary: "#9C9BC0"
+  components:
+    buttonPrimary:
+      bg: "{colors.tertiary}"
+      text: "#ffffff"
+      padding: 12px
+      rounded: "{rounded.sm}"
+  typography:
+    headingFamily: Inter
+    bodyFamily: Inter
+    labelFamily: IBM Plex Mono
+    monoFamily: IBM Plex Mono
+    h1Size: 3rem
+    h2Size: 2rem
+    bodySize: 1rem
+    labelSize: 0.75rem
+  semanticDark:
+    ring: "#A5B4FC"
+    brand:
+      background: "#F5F5FA"
+      foreground: "#171717"
+    input: "#474566"
+    muted: "#323050"
+    accent:
+      background: "#A5B4FC"
+      foreground: "#f5f5f5"
+    border: "#403e5f"
+    surface:
+      default: "#1c1b37"
+      overlay: rgba(0,0,0,0.7)
+      elevated: "#26243f"
+    feedback:
+      info: "#3b82f6"
+      error: "#ef4444"
+      success: "#22c55e"
+      warning: "#f59e0b"
+    background: "#0E0C2A"
+    foreground: "#F5F5FA"
+    mutedForeground: "#9C9BC0"
+rulesets:
+  - name: Impeccable Interface Audit
+    description: Default rules derived from Impeccable style guidance for detecting generic AI UI patterns, weak typography, poor contrast, repetitive layouts, unsafe motion, interaction hierarchy problems, responsive regressions, and document structure issues.
+    citationUrl: https://impeccable.style/
+    rules:
+      - id: rule-ds-01-preset-token-compliance
+        title: Follow the linked design preset
+        category: visual
+        guidance: Flag UI that violates the application's linked Chai Studio design preset. Colors, typography, spacing, radius, shadows, component treatments, semantic token usage, and light/dark behavior must match the preset returned by get-design-doc/get-presets. Replace hard-coded or off-preset values with the preset's tokens unless the user explicitly requested an exception.
+        severity: critical
+      - id: rule-vd-01-side-tab-accent-border
+        title: Reject one-sided accent borders on rounded cards
+        category: visual
+        guidance: Flag thick colored borders on exactly one side of a rounded card. Remove the accent border, or remove the radius so the stripe does not clash.
+        severity: high
+      - id: rule-vd-02-nested-cards
+        title: Flatten nested card hierarchies
+        category: visual
+        guidance: Flag cards rendered inside other padded or shadowed cards. Use spacing, typography, and dividers instead of stacked container depth.
+        severity: high
+      - id: rule-vd-03-glassmorphism-everywhere
+        title: Limit glass and blur effects
+        category: visual
+        guidance: Flag decorative blur, frosted-glass cards, and glow borders unless they solve a genuine layering problem such as a floating panel over complex content.
+        severity: medium
+      - id: rule-vd-04-modals-by-reflex
+        title: Avoid complex scrollable modals
+        category: interaction
+        guidance: Flag settings, forms, or multi-column content crammed into a scrollable modal. Move complex flows to a dedicated page or panel.
+        severity: medium
+      - id: rule-vd-05-generic-drop-shadows
+        title: Avoid generic shadowed card treatment
+        category: visual
+        guidance: Flag repeated rounded rectangles using the same gray box shadow. Commit to a deliberate elevation system, border-only treatment, or no shadow.
+        severity: medium
+      - id: rule-vd-06-decorative-sparklines
+        title: Remove non-informative tiny charts
+        category: visual
+        guidance: Flag sparklines or tiny charts used only to suggest sophistication. Give the chart readable space and real data value, or remove it.
+        severity: low
+      - id: rule-ty-01-overused-font
+        title: Use a distinctive primary typeface
+        category: typography
+        guidance: Flag Inter, Roboto, Open Sans, Lato, Montserrat, or Arial as the primary interface font unless the brand explicitly requires it.
+        severity: high
+      - id: rule-ty-02-single-font
+        title: Use intentional font pairing
+        category: typography
+        guidance: Flag interfaces using one font family for headings, body, labels, and buttons. Pair a distinctive display face with a refined body face.
+        severity: medium
+      - id: rule-ty-03-flat-type-hierarchy
+        title: Enforce clear type hierarchy
+        category: typography
+        guidance: Flag heading and body sizes that are too close together. Use fewer sizes with at least a 1.25x step ratio between major levels.
+        severity: medium
+      - id: rule-ty-04-icon-tile-above-heading
+        title: Avoid icon tile feature-card templates
+        category: typography
+        guidance: Flag small rounded-square icon containers stacked directly above headings in feature cards. Place icon and heading side by side or let the icon sit naturally in flow.
+        severity: medium
+      - id: rule-ty-05-monospace-as-technical-shorthand
+        title: Reserve monospace for actual code or data
+        category: typography
+        guidance: Flag monospace used only to imply technical tone. Use fixed-width type only for code, terminal output, IDs, or aligned data.
+        severity: low
+      - id: rule-ty-06-all-caps-body-text
+        title: Avoid all-caps body copy
+        category: typography
+        guidance: Flag long uppercase passages. Reserve uppercase for short labels or badges, and use normal case for body text.
+        severity: medium
+      - id: rule-ty-07-tight-line-height
+        title: Keep body line-height readable
+        category: typography
+        guidance: Flag body text with line-height below 1.3. Use roughly 1.5 to 1.7 for readable paragraphs.
+        severity: medium
+      - id: rule-ty-08-tiny-body-text
+        title: Avoid tiny body text
+        category: typography
+        guidance: Flag body content below 12px. Use at least 14px for body content, with 16px preferred for primary reading.
+        severity: medium
+      - id: rule-ty-09-wide-body-letter-spacing
+        title: Avoid wide tracking on body text
+        category: typography
+        guidance: Flag body paragraphs with letter-spacing above 0.05em. Reserve wide tracking for short uppercase labels.
+        severity: low
+      - id: rule-ty-10-justified-text
+        title: Avoid unjustified body text
+        category: typography
+        guidance: Flag justified body text without hyphenation. Prefer left-aligned body copy, or enable hyphens when justification is required.
+        severity: low
+      - id: rule-cc-01-ai-color-palette
+        title: Reject default AI color palettes
+        category: color
+        guidance: Flag purple/violet-to-blue gradients or cyan-on-dark as a primary palette. Choose a distinctive palette with intentional, perceptually uniform tints.
+        severity: high
+      - id: rule-cc-02-gradient-text
+        title: Avoid gradient text
+        category: color
+        guidance: Flag background-clip gradient text on headings or metrics. Use solid text colors and reserve gradients for purposeful backgrounds.
+        severity: medium
+      - id: rule-cc-03-dark-mode-glow
+        title: Avoid dark mode glow accents
+        category: color
+        guidance: Flag dark backgrounds combined with colored box-shadow glows. Use subtle, purposeful lighting without glow as the main affordance.
+        severity: medium
+      - id: rule-cc-04-dark-mode-by-default
+        title: Require rationale for default dark mode
+        category: color
+        guidance: Flag dark theme as the default when no brand or audience rationale is documented. Choose the mode deliberately and offer the other as an option when useful.
+        severity: low
+      - id: rule-cc-05-gray-on-colored-background
+        title: Avoid gray text on colored backgrounds
+        category: color
+        guidance: Flag low-saturation gray text on colored surfaces. Use white, near-white, or a darker shade of the background hue with sufficient contrast.
+        severity: critical
+      - id: rule-cc-06-low-contrast-text
+        title: Enforce WCAG text contrast
+        category: color
+        guidance: Flag text below 4.5:1 contrast for body copy or 3:1 for large text. Increase contrast while preserving the intended color system.
+        severity: critical
+      - id: rule-cc-07-pure-black-background
+        title: Avoid pure black backgrounds
+        category: color
+        guidance: "Flag #000000 or equivalent pure black backgrounds. Tint dark surfaces slightly toward the brand hue."
+        severity: low
+      - id: rule-ls-01-everything-centered
+        title: Avoid centering every text block
+        category: layout
+        guidance: Flag pages where nearly every text block is centered. Use left-aligned text and asymmetric layouts except for heroes and CTAs.
+        severity: medium
+      - id: rule-ls-02-monotonous-spacing
+        title: Create purposeful spacing rhythm
+        category: layout
+        guidance: Flag the same gap or margin repeated uniformly across all sections. Use tighter spacing for related items and larger spacing between sections.
+        severity: medium
+      - id: rule-ls-03-identical-card-grids
+        title: Break identical feature-card grids
+        category: layout
+        guidance: Flag uniform grids of same-sized cards with icon, heading, and short text repeated across a page. Vary layout weight or use a more content-specific structure.
+        severity: medium
+      - id: rule-ls-04-hero-metric-layout
+        title: Avoid generic hero metric blocks
+        category: layout
+        guidance: Flag big-number/small-label stat clusters used as generic social proof. Require specific data and a presentation that fits the content.
+        severity: low
+      - id: rule-ls-05-wrapping-everything-in-cards
+        title: Reserve cards for real containment
+        category: layout
+        guidance: Flag content where every item is boxed in a bordered or shadowed card. Use spacing and alignment for grouping unless containment is meaningful.
+        severity: high
+      - id: rule-ls-06-long-line-length
+        title: Limit body line length
+        category: layout
+        guidance: Flag text lines longer than about 80 characters. Constrain reading containers to roughly 65ch to 75ch.
+        severity: medium
+      - id: rule-ls-07-cramped-padding
+        title: Avoid cramped container padding
+        category: layout
+        guidance: Flag text within 4px of a bordered or colored container edge. Add at least 8px padding, with 12px to 16px preferred.
+        severity: medium
+      - id: rule-mo-01-bounce-or-elastic-easing
+        title: Reject bounce and elastic easing
+        category: motion
+        guidance: Flag bounce timing functions, overshooting cubic-bezier curves, or spring animations with high bounce. Use smooth deceleration instead.
+        severity: medium
+      - id: rule-mo-02-layout-property-animation
+        title: Avoid layout property animation
+        category: motion
+        guidance: Flag transitions or animations on width, height, padding, margin, top, or left. Animate transform and opacity; use grid-template-rows only when height disclosure needs it.
+        severity: high
+      - id: rule-in-01-every-button-primary
+        title: Create action hierarchy
+        category: interaction
+        guidance: Flag adjacent actions rendered with the same primary style. Use primary, secondary, ghost, or text treatments to show which action matters most.
+        severity: medium
+      - id: rule-in-02-redundant-information
+        title: Remove redundant helper text
+        category: content
+        guidance: Flag label, sublabel, helper text, and hints that repeat the same idea. Keep one clear explanation where the user needs it.
+        severity: low
+      - id: rule-re-01-amputating-mobile-features
+        title: Preserve critical features on mobile
+        category: responsive
+        guidance: Flag critical functionality hidden or replaced by a not-available-on-mobile message. Adapt the interface to mobile without removing the capability.
+        severity: high
+      - id: rule-a11y-01-skipped-heading-level
+        title: Preserve heading order
+        category: accessibility
+        guidance: Flag skipped heading levels such as h1 followed by h3. Keep document outline order semantic and use CSS for visual sizing.
+        severity: high

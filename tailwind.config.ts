@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: [
-          "IBM Plex Sans",
+          "Inter",
           "-apple-system",
           "system-ui",
           "Avenir Next",
@@ -28,6 +28,17 @@ export default {
           "Noto",
           "Arial",
           "sans-serif",
+        ],
+        mono: [
+          "IBM Plex Mono",
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Monaco",
+          "Consolas",
+          "Liberation Mono",
+          "Courier New",
+          "monospace",
         ],
       },
       colors: {
@@ -88,9 +99,9 @@ export default {
         floating: "var(--shadow-floating)",
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "2px",
+        lg: "14px",
+        md: "9px",
+        sm: "5px",
       },
       keyframes: {
         "accordion-down": {

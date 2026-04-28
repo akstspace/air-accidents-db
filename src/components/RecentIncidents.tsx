@@ -51,7 +51,7 @@ export default function RecentIncidents() {
             <div>
               <div className="flex items-center gap-2 text-foreground">
                 <Clock3 className="h-4 w-4 text-accent" />
-                <span className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Recent Incidents</span>
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Recent Incidents</span>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
                 A quick look at the most recent aviation accidents available in the current dataset.

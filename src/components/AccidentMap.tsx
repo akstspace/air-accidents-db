@@ -8,9 +8,9 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const SEVERITY_COLORS: Record<string, string> = {
-  fatal: '#8b3d2f',
-  serious: '#c94b1f',
-  incident: '#d4920a',
+  fatal: '#dc2626',
+  serious: '#d97706',
+  incident: '#6366F1',
 };
 
 type AccidentMapProps = {
@@ -20,7 +20,7 @@ type AccidentMapProps = {
 export default function AccidentMap({ variant = 'dashboard' }: Readonly<AccidentMapProps>) {
   const { filteredAccidents, setSelectedAccident } = useDashboard();
   const { theme, resolvedTheme } = useTheme();
-  const effectiveTheme = theme === 'chai' ? 'chai' : resolvedTheme === 'dark' ? 'dark' : 'light';
+  const effectiveTheme = resolvedTheme === 'dark' ? 'dark' : 'light';
   const title = variant === 'search' ? 'Search Result Map' : 'Global Accident Map';
   const description = variant === 'search'
     ? 'Geographic clustering for the currently matched semantic search results.'
@@ -59,7 +59,7 @@ export default function AccidentMap({ variant = 'dashboard' }: Readonly<Accident
               width: '100%',
               height: '100%',
               minHeight: 420,
-              background: effectiveTheme === 'light' ? '#f3eee4' : effectiveTheme === 'chai' ? '#221a13' : '#111827',
+              background: effectiveTheme === 'light' ? '#F5F5FA' : '#0E0C2A',
             }}
             zoomControl
             scrollWheelZoom

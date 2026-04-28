@@ -336,7 +336,7 @@ export default function Search() {
           <div className={cn('mx-auto w-full transition-all duration-500', hasSearchSession ? 'max-w-5xl' : 'max-w-2xl')}>
             <div className="flex items-center gap-1.5 border-b border-border pb-2">
               <SlidersHorizontal className="h-3 w-3 text-muted-foreground" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Filters</span>
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Filters</span>
             </div>
             <SearchFilters />
           </div>
@@ -399,7 +399,7 @@ export default function Search() {
             className="space-y-4 pb-8"
           >
             <div className="flex items-baseline gap-2 border-b border-border pb-2">
-              <h3 className="text-lg font-bold tracking-[-0.02em]">{committedQuery}</h3>
+              <h2 className="text-lg font-bold tracking-[-0.02em]">{committedQuery}</h2>
               {!searching && (
                 <span className="text-xs text-muted-foreground">{filteredAccidents.length.toLocaleString()} results</span>
               )}

@@ -168,8 +168,8 @@ export default function Settings() {
       <TopNav />
       <main className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-1">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Settings</p>
-          <h1 className="text-[30px] font-extrabold tracking-[-0.03em]">Settings</h1>
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Settings</p>
+          <h2 className="text-[30px] font-extrabold tracking-[-0.03em]">Settings</h2>
           <p className="text-sm text-muted-foreground">
             Manage data import and browser-based semantic search.
           </p>
@@ -236,7 +236,7 @@ export default function Settings() {
                 </Alert>
               ) : null}
 
-              <div className="rounded-lg border border-border bg-secondary/50 p-4 text-sm text-muted-foreground">
+              <div className="space-y-3 p-4 text-sm text-muted-foreground border-b border-border">
                 <p>
                   Last refreshed:{' '}
                   <span className="font-medium text-foreground">
@@ -245,13 +245,13 @@ export default function Settings() {
                 </p>
               </div>
 
-              <div className="space-y-4 rounded-lg border border-border p-4">
+              <div className="space-y-4">
                 <div className="flex items-center gap-2">
                   <FileSpreadsheet className="h-4 w-4 text-accent" />
                   <p className="text-sm font-medium text-foreground">Import Source</p>
                 </div>
                 <div className="grid gap-4 lg:grid-cols-2">
-                  <div className="space-y-3 rounded-lg border border-border bg-secondary/50 p-4">
+                  <div className="space-y-3 p-4 bg-secondary/50">
                     <div className="flex items-center gap-2">
                       <FileUp className="h-4 w-4 text-accent" />
                       <p className="text-sm font-medium text-foreground">Local JSONL file</p>
@@ -288,7 +288,7 @@ export default function Settings() {
                     </div>
                   </div>
 
-                  <div className="space-y-3 rounded-lg border border-border bg-secondary/50 p-4">
+                  <div className="space-y-3 p-4 bg-secondary/50">
                     <div className="flex items-center gap-2">
                       <Globe className="h-4 w-4 text-accent" />
                       <p className="text-sm font-medium text-foreground">Remote JSONL URL</p>
@@ -340,8 +340,8 @@ export default function Settings() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
-              <div className="space-y-3 rounded-lg border border-border bg-secondary/50 p-4">
-                <p className="text-sm font-medium text-foreground">Browser Model</p>
+<div className="space-y-3 p-4 bg-secondary/50">
+                  <p className="text-sm font-medium text-foreground">Browser Model</p>
                 <div className="space-y-2">
                   <Label htmlFor="browser-model">ONNX Model</Label>
                   <Select value={draftBrowserModel} onValueChange={handleBrowserModelChange}>
@@ -361,7 +361,7 @@ export default function Settings() {
                     ) : null;
                   })()}
                 </div>
-                <div className="rounded-md border border-border bg-background p-3 text-xs text-muted-foreground">
+                <div className="rounded-md border border-border bg-background px-3 py-2 text-xs text-muted-foreground">
                   {draftDimensions}-dimensional vectors will be generated for search.
                 </div>
               </div>

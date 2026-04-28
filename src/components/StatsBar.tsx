@@ -38,7 +38,7 @@ export default function StatsBar() {
               </div>
               <div>
                 <p className="text-[30px] font-extrabold leading-none tracking-[-0.04em] text-foreground">{item.value}</p>
-                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{item.label}</p>
+                <p className="mt-1 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{item.label}</p>
               </div>
             </CardContent>
           </Card>

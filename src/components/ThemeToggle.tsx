@@ -1,4 +1,4 @@
-import { Coffee, Monitor, Moon, Sun } from 'lucide-react';
+import { Monitor, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,7 +13,7 @@ import {
 export default function ThemeToggle() {
   const { setTheme, theme } = useTheme();
 
-  const ActiveIcon = theme === 'chai' ? Coffee : theme === 'dark' ? Moon : theme === 'system' ? Monitor : Sun;
+  const ActiveIcon = theme === 'dark' ? Moon : theme === 'system' ? Monitor : Sun;
 
   return (
     <DropdownMenu>
@@ -33,10 +33,6 @@ export default function ThemeToggle() {
         <DropdownMenuItem onClick={() => setTheme('dark')}>
           <Moon className="mr-2 h-4 w-4" />
           Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('chai')}>
-          <Coffee className="mr-2 h-4 w-4" />
-          Chai
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('system')}>
           <Monitor className="mr-2 h-4 w-4" />

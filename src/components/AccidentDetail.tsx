@@ -71,8 +71,8 @@ export default function AccidentDetail() {
 
                 <ScrollArea className="flex-1">
                   <div className="space-y-5 px-6 py-5">
-                    <Card className="bg-secondary/45">
-                      <CardContent className="grid grid-cols-3 gap-2 p-3 text-center">
+                    <div className="rounded-lg border border-border bg-secondary/45 p-3">
+                      <div className="grid grid-cols-3 gap-2 text-center">
                         {[
                           ['Fatalities', a.total_fatalities],
                           ['Injuries', a.total_injuries],
@@ -80,30 +80,30 @@ export default function AccidentDetail() {
                         ].map(([label, value]) => (
                           <div key={String(label)}>
                             <p className="text-xl font-semibold tabular-nums tracking-tight">{value || 0}</p>
-                            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</p>
+                            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">{label}</p>
                           </div>
                         ))}
-                      </CardContent>
-                    </Card>
+                      </div>
+                    </div>
 
                     {(a.total_ground_fatalities > 0 || a.total_ground_injuries > 0) && (
-                      <Card className="bg-secondary/35">
-                        <CardContent className="grid grid-cols-2 gap-3 p-3 text-center">
-                          {[
-                            ['Ground Fatalities', a.total_ground_fatalities],
-                            ['Ground Injuries', a.total_ground_injuries],
-                          ].map(([label, value]) => (
-                            <div key={String(label)}>
-                              <p className="text-xl font-semibold tabular-nums tracking-tight">{value || 0}</p>
-                              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</p>
-                            </div>
-                          ))}
-                        </CardContent>
-                      </Card>
+<div className="rounded-lg border border-border bg-secondary/35 p-3">
+                      <div className="grid grid-cols-2 gap-3 text-center">
+                        {[
+                          ['Ground Fatalities', a.total_ground_fatalities],
+                          ['Ground Injuries', a.total_ground_injuries],
+                        ].map(([label, value]) => (
+                          <div key={String(label)}>
+                            <p className="text-xl font-semibold tabular-nums tracking-tight">{value || 0}</p>
+                            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">{label}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                     )}
 
                     <section className="space-y-2">
-                      <h4 className="text-sm font-medium">Overview</h4>
+                      <h3 className="text-sm font-medium">Overview</h3>
                       <p className="text-sm leading-relaxed text-muted-foreground">
                         {visibleOverview}
                       </p>
@@ -121,7 +121,7 @@ export default function AccidentDetail() {
                     </section>
 
                     <section className="space-y-3">
-                      <h4 className="text-sm font-medium">Flight Details</h4>
+                      <h3 className="text-sm font-medium">Flight Details</h3>
                       <div className="grid gap-2 sm:grid-cols-2">
                         {[
                           ['Aircraft', a.aircraft_type],
@@ -133,8 +133,8 @@ export default function AccidentDetail() {
                         ]
                           .filter(([, value]) => value)
                           .map(([label, value]) => (
-                            <div key={String(label)} className="rounded-md border border-border bg-secondary/35 p-3">
-                              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</p>
+                            <div key={String(label)} className="rounded-md border border-b border-border bg-secondary/35 px-3 py-2">
+                              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">{label}</p>
                               <p className="mt-1 text-sm">{value}</p>
                             </div>
                           ))}
@@ -143,7 +143,7 @@ export default function AccidentDetail() {
 
                     {images.length > 0 && (
                       <section className="space-y-3">
-                        <h4 className="text-sm font-medium">Photos</h4>
+                        <h3 className="text-sm font-medium">Photos</h3>
                         <div className="grid grid-cols-2 gap-2">
                           {images.slice(0, 4).map((img) => (
                             <img
