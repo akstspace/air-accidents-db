@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 import DataSourceDialog from '@/components/DataSourceDialog';
@@ -7,7 +6,6 @@ import TopNav from '@/components/TopNav';
 import AccidentMap from '@/components/AccidentMap';
 import { AircraftTypeChart, AnnualCrashesChart, CausesChart } from '@/components/Charts';
 import IncidentTable from '@/components/IncidentTable';
-import AccidentDetail from '@/components/AccidentDetail';
 import StatsBar from '@/components/StatsBar';
 import { useDashboard } from '@/contexts/DashboardContext';
 import { Badge } from '@/components/ui/badge';
@@ -20,7 +18,7 @@ import { Progress } from '@/components/ui/progress';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import type { SeverityType } from '@/lib/types';
-import { CalendarRange, Loader2, Plane, RotateCcw, Search as SearchIcon, Settings, SlidersHorizontal } from 'lucide-react';
+import { CalendarRange, Loader2, Plane, RotateCcw, Search as SearchIcon, SlidersHorizontal } from 'lucide-react';
 
 const SEARCH_PROMPTS = [
   'controlled flight into terrain in mountainous weather',
@@ -70,7 +68,7 @@ function SearchFilters() {
   return (
     <div className="flex flex-wrap items-center gap-1.5">
       {/* Year range */}
-      <div className="flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1.5 text-sm">
+      <div className="flex items-center gap-1.5 border border-border bg-background px-2.5 py-1.5 text-sm">
         <CalendarRange className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
         <Input
           type="number"
@@ -138,7 +136,7 @@ function SearchFilters() {
           type="button"
           onClick={() => toggleSeverity(s)}
           className={cn(
-            'flex h-8 items-center gap-1.5 rounded-md border px-2.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors',
+            'flex h-8 items-center gap-1.5 border px-2.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors',
             filters.severities.includes(s)
               ? 'border-accent bg-secondary text-foreground'
               : 'border-border text-muted-foreground hover:bg-muted/50 hover:text-accent',
@@ -222,21 +220,18 @@ export default function Search() {
     refreshing,
     dataSource,
   } = useDashboard();
-  const navigate = useNavigate();
   const [draftQuery, setDraftQuery] = useState(searchQuery);
   const [showImportDialog, setShowImportDialog] = useState(false);
 
   const committedQuery = searchQuery.trim();
   const hasSearchSession = committedQuery.length > 0;
   const requiresImport = !loading && !databaseStatus.loaded;
-  const requiresEmbeddings = !loading && databaseStatus.loaded && !databaseStatus.semanticSearchAvailable;
 
   useEffect(() => {
     setDraftQuery(searchQuery);
   }, [searchQuery]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
     setSearchPageActive(true);
 
     return () => {
@@ -257,7 +252,7 @@ export default function Search() {
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
-        <div className="flex w-full max-w-sm flex-col gap-3 rounded-lg border border-border bg-card p-5">
+        <div className="flex w-full max-w-sm flex-col gap-3 border border-border bg-card p-5">
           <div className="flex items-center gap-3">
             <Loader2 className="h-5 w-5 animate-spin text-accent" />
             <div>
@@ -285,33 +280,30 @@ export default function Search() {
       className="min-h-screen"
     >
       <TopNav />
-      <main className="mx-auto flex w-full max-w-screen-2xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <section
-          className={cn(
-            'relative flex flex-col justify-center transition-all duration-500 ease-out',
-            hasSearchSession ? 'min-h-0 gap-4 pt-2' : 'min-h-[calc(100vh-12rem)] gap-6',
-          )}
-        >
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              runSearch(draftQuery);
-            }}
-            className={cn('mx-auto w-full transition-all duration-500', hasSearchSession ? 'max-w-5xl' : 'max-w-2xl')}
-          >
-            <div className="rounded-lg border border-border bg-background p-1.5 transition-colors focus-within:border-accent">
-              <div className="flex items-center gap-1.5">
-                <div className="relative flex-1">
+
+      {/* Search Hero */}
+      <section className="border-b border-border bg-card">
+        <div className="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <h1 className="font-heading text-2xl font-bold text-foreground">Search the Archive</h1>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                runSearch(draftQuery);
+              }}
+              className="mt-4"
+            >
+              <div className="flex flex-wrap gap-2 sm:flex-nowrap">
+                <div className="relative w-full sm:flex-1">
                   <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     value={draftQuery}
                     onChange={(event) => setDraftQuery(event.target.value)}
-                    placeholder="Search incidents by cause, operator, or details…"
-                    disabled={!databaseStatus.semanticSearchAvailable}
+                    placeholder="Describe an incident: e.g. engine failure after takeoff..."
                     className="h-11 border-0 bg-transparent pl-10 text-sm shadow-none focus-visible:ring-0"
                   />
                 </div>
-                <Button type="submit" size="sm" className="h-9 px-4" disabled={!databaseStatus.semanticSearchAvailable}>
+                <Button type="submit" size="default" className="h-11 px-5">
                   {searching ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : null}
                   Search
                 </Button>
@@ -319,77 +311,56 @@ export default function Search() {
                   <Button
                     type="button"
                     variant="ghost"
-                    size="sm"
-                    className="h-9 px-3 text-muted-foreground"
+                    size="icon"
+                    className="h-11 w-11 text-muted-foreground"
                     onClick={() => {
                       setDraftQuery('');
                       runSearch('');
                     }}
                   >
-                    <RotateCcw className="h-3.5 w-3.5" />
+                    <RotateCcw className="h-4 w-4" />
                   </Button>
                 )}
               </div>
-            </div>
-          </form>
+            </form>
 
-          <div className={cn('mx-auto w-full transition-all duration-500', hasSearchSession ? 'max-w-5xl' : 'max-w-2xl')}>
-            <div className="flex items-center gap-1.5 border-b border-border pb-2">
-              <SlidersHorizontal className="h-3 w-3 text-muted-foreground" />
-              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Filters</span>
-            </div>
-            <SearchFilters />
-          </div>
-
-          {!hasSearchSession && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              className="mx-auto flex max-w-3xl flex-col items-center gap-4"
-            >
-              {requiresEmbeddings && (
-                <Card className="w-full">
-                  <CardContent className="p-4 text-left">
-                    <p className="text-sm font-medium">Semantic search is not ready</p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {databaseStatus.semanticSearchReason ?? 'Embeddings are not available for this dataset yet.'}
-                    </p>
-                    <Button type="button" size="sm" className="mt-3" onClick={() => void navigate('/settings')}>
-                      <Settings className="mr-1.5 h-3.5 w-3.5" />
-                      Go to settings
-                    </Button>
-                  </CardContent>
-                </Card>
-              )}
-
-              <div className="flex flex-wrap justify-center gap-1.5">
-                {SEARCH_PROMPTS.map((prompt) => (
-                  <Button
-                    key={prompt}
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="text-xs"
-                    onClick={() => {
-                      setDraftQuery(prompt);
-                      runSearch(prompt);
-                    }}
-                    disabled={!databaseStatus.semanticSearchAvailable}
-                  >
-                    {prompt}
-                  </Button>
-                ))}
-              </div>
-
-              {!databaseStatus.loaded && (
-                <Button type="button" variant="secondary" size="sm" onClick={() => setShowImportDialog(true)}>
-                  Import JSONL to start searching
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">Try:</span>
+              {SEARCH_PROMPTS.map((prompt) => (
+                <Button
+                  key={prompt}
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="text-xs"
+                  onClick={() => {
+                    setDraftQuery(prompt);
+                    runSearch(prompt);
+                  }}
+                >
+                  {prompt}
                 </Button>
-              )}
-            </motion.div>
-          )}
-        </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <main className="mx-auto w-full max-w-screen-2xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+          {!hasSearchSession && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            className="mx-auto flex max-w-3xl flex-col items-center gap-4"
+          >
+            {!databaseStatus.loaded && (
+              <Button type="button" variant="secondary" size="sm" onClick={() => setShowImportDialog(true)}>
+                Import JSONL to start searching
+              </Button>
+            )}
+          </motion.div>
+        )}
 
         {hasSearchSession && (
           <motion.section
@@ -398,18 +369,42 @@ export default function Search() {
             transition={{ duration: 0.3 }}
             className="space-y-4 pb-8"
           >
-            <div className="flex items-baseline gap-2 border-b border-border pb-2">
-              <h2 className="text-lg font-bold tracking-[-0.02em]">{committedQuery}</h2>
-              {!searching && (
-                <span className="text-xs text-muted-foreground">{filteredAccidents.length.toLocaleString()} results</span>
-              )}
-            </div>
+            <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
+              {/* Filter Sidebar */}
+              <aside className="space-y-6">
+                <div>
+                  <p className="mb-3 border-b border-border pb-2 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
+                    Active Filters
+                  </p>
+                  <SearchFilters />
+                </div>
 
-            <SearchResults searching={searching} filteredAccidents={filteredAccidents} databaseProgress={databaseProgress} />
+                <div>
+                  <p className="mb-3 border-b border-border pb-2 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
+                    Quick Stats
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex justify-between border-b border-border pb-2">
+                      <span className="text-sm text-muted-foreground">Results</span>
+                      <span className="font-semibold">{filteredAccidents.length.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+
+              {/* Results */}
+              <main className="space-y-6">
+                <div className="flex flex-wrap items-baseline justify-between gap-2 border-b-2 border-primary pb-2">
+                  <h2 className="font-heading text-xl font-bold text-foreground">Search Results</h2>
+                  <span className="text-sm text-muted-foreground">{filteredAccidents.length.toLocaleString()} results</span>
+                </div>
+
+                <SearchResults searching={searching} filteredAccidents={filteredAccidents} databaseProgress={databaseProgress} />
+              </main>
+            </div>
           </motion.section>
         )}
 
-        <AccidentDetail />
         <DataSourceDialog
           open={requiresImport || showImportDialog}
           required={requiresImport}

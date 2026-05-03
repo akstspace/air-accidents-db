@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
-import { CalendarDays, ChevronRight, Plane } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 import { useDashboard } from '@/contexts/DashboardContext';
 import { getSeverity } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const MONTH_LOOKUP = new Map([
   ['jan', 1],
@@ -37,12 +36,12 @@ const MONTH_LOOKUP = new Map([
 function getSeverityBadgeClass(severity: ReturnType<typeof getSeverity>) {
   switch (severity) {
     case 'fatal':
-      return 'border-severity-fatal/30 bg-severity-fatal/10 text-severity-fatal';
+      return 'border-accent bg-accent text-accent-foreground';
     case 'serious':
-      return 'border-severity-serious/30 bg-severity-serious/10 text-severity-serious';
+      return 'border-muted bg-muted text-muted-foreground';
     case 'incident':
     default:
-      return 'border-severity-incident/30 bg-severity-incident/10 text-severity-incident';
+      return 'border-border bg-background text-muted-foreground';
   }
 }
 
@@ -114,7 +113,8 @@ function formatTodayLabel(date: Date) {
 }
 
 export default function TodayInHistory() {
-  const { accidents, setSelectedAccident } = useDashboard();
+  const { accidents } = useDashboard();
+  const navigate = useNavigate();
 
   const today = useMemo(() => new Date(), []);
   const todayMonth = today.getMonth() + 1;
@@ -144,81 +144,44 @@ export default function TodayInHistory() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.12 }}
     >
-      <Card className="overflow-hidden bg-card">
-        <CardHeader className="border-b border-border bg-secondary/55">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-foreground">
-                <CalendarDays className="h-4 w-4 text-accent" />
-                <span className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Today in History</span>
-              </div>
-              <CardTitle className="mt-2 text-xl">{todayLabel}</CardTitle>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {matches.length > 0
-                  ? `${matches.length.toLocaleString()} aviation accident${matches.length === 1 ? '' : 's'} in the archive occurred on this date.`
-                  : 'No archived accidents match today’s date in the current dataset.'}
-              </p>
-            </div>
-            <div className="hidden rounded-lg border border-border bg-background p-3 sm:flex">
-              <Plane className="h-5 w-5 text-accent" />
-            </div>
-          </div>
-        </CardHeader>
+      <div className="mb-3 border-b border-border pb-2">
+        <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">Today in History</p>
+        <p className="mt-1 font-heading text-xl font-bold text-foreground">{todayLabel}</p>
+      </div>
 
-        <CardContent className="p-4 sm:p-5">
-          {featured.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-border bg-secondary/40 px-4 py-8 text-center">
-              <p className="text-sm font-medium text-foreground">Nothing surfaced for {todayLabel}.</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Try changing the dataset source if you want to compare against a different archive snapshot.
-              </p>
-            </div>
-          ) : (
-            <div className="grid gap-3 lg:grid-cols-2">
-              {featured.map((accident) => {
-                const severity = getSeverity(accident);
-                const overview = accident.accident_description || accident.index_summary || accident.summary_infobox || 'No summary available.';
-                const blurb = overview.length > 180 ? `${overview.slice(0, 180).trimEnd()}...` : overview;
+      {featured.length === 0 ? (
+        <div className="border border-dashed border-border bg-secondary/40 px-4 py-6 text-center">
+          <p className="text-sm font-medium text-foreground">Nothing surfaced for {todayLabel}.</p>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-2">
+          {featured.map((accident) => {
+            const severity = getSeverity(accident);
 
-                return (
-                  <button
-                    key={accident.id}
-                    type="button"
-                    onClick={() => setSelectedAccident(accident)}
-                    className="group rounded-lg border border-border bg-background p-4 text-left transition-colors hover:border-accent hover:bg-[hsl(var(--background))]"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{accident.date || accident.year}</p>
-                        <h3 className="mt-1 line-clamp-2 text-base font-semibold leading-tight text-foreground">
-                          {accident.page_title}
-                        </h3>
-                      </div>
-                      <Badge variant="outline" className={getSeverityBadgeClass(severity)}>
-                        {severity}
-                      </Badge>
-                    </div>
-
-                    <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{blurb}</p>
-
-                    <div className="mt-4 flex items-center justify-between gap-3">
-                      <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                        {accident.operator && <span>{accident.operator}</span>}
-                        {accident.operator && accident.site && <span>•</span>}
-                        {accident.site && <span className="line-clamp-1">{accident.site}</span>}
-                      </div>
-                      <span className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-sm font-medium text-foreground transition-colors group-hover:bg-muted group-hover:text-accent">
-                        View
-                        <ChevronRight className="h-4 w-4" />
-                      </span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            return (
+              <button
+                key={accident.id}
+                type="button"
+                onClick={() => navigate(`/accident/${accident.id}`)}
+                className="group border-l-2 border-accent bg-background pl-3 py-2 text-left transition-colors hover:bg-secondary/30"
+              >
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="font-mono text-[0.65rem] text-muted-foreground">{accident.date || accident.year}</span>
+                  <Badge variant="outline" className={`text-[0.6rem] px-1.5 py-0 ${getSeverityBadgeClass(severity)}`}>
+                    {severity}
+                  </Badge>
+                </div>
+                <h3 className="text-sm font-semibold leading-tight text-foreground group-hover:text-accent">
+                  {accident.page_title}
+                </h3>
+                {accident.operator && (
+                  <p className="mt-0.5 text-xs text-muted-foreground">{accident.operator} · {accident.total_fatalities} fatalities</p>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </motion.div>
   );
 }

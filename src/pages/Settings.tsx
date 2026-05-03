@@ -8,8 +8,6 @@ import TopNav from '@/components/TopNav';
 import DownloadEmbeddingsDialog from '@/components/DownloadEmbeddingsDialog';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
@@ -166,237 +164,246 @@ export default function Settings() {
       className="min-h-screen"
     >
       <TopNav />
-      <main className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-1">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Settings</p>
-          <h2 className="text-[30px] font-extrabold tracking-[-0.03em]">Settings</h2>
-          <p className="text-sm text-muted-foreground">
-            Manage data import and browser-based semantic search.
+      <main className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col gap-8 px-4 py-6 sm:px-6 lg:px-8">
+        <div>
+          <h1 className="font-heading text-3xl font-bold text-foreground">Settings</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Manage data sources, embeddings, and application preferences.
           </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Database className="h-4 w-4 text-accent" />
-                Data Store
-              </CardTitle>
-              <CardDescription>
-                Your imported data is stored locally in the browser and can be rebuilt on demand.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-5">
-              <div className="flex flex-wrap gap-3">
-                <Badge variant="secondary">{databaseStatus.accidentCount.toLocaleString()} accidents</Badge>
-                <Badge variant="secondary">{databaseStatus.imageCount.toLocaleString()} images</Badge>
-                <Badge variant={databaseStatus.loaded ? 'default' : 'outline'}>
-                  {databaseStatus.loaded ? 'Ready' : 'Not loaded'}
-                </Badge>
-                <Badge variant={databaseStatus.semanticSearchAvailable ? 'default' : 'outline'}>
-                  {databaseStatus.semanticSearchAvailable ? 'Search ready' : 'Search disabled'}
-                </Badge>
-                <Badge variant="outline">{describeDataSource(dataSource)}</Badge>
+        {/* Data Store Section */}
+        <section>
+          <div className="mb-4 flex items-center gap-2 border-b-2 border-primary pb-2">
+            <div className="flex h-6 w-6 items-center justify-center bg-primary text-primary-foreground">
+              <Database className="h-3 w-3" />
+            </div>
+            <h2 className="font-heading text-lg font-bold text-foreground">Data Store</h2>
+          </div>
+
+          <div className="grid grid-cols-2 border border-border sm:grid-cols-4" style={{ gap: '1px', background: 'var(--color-border)' }}>
+            {[
+              { label: 'Accidents', value: databaseStatus.accidentCount.toLocaleString() },
+              { label: 'Images', value: databaseStatus.imageCount.toLocaleString() },
+              { label: 'Status', value: databaseStatus.loaded ? 'Ready' : 'Not loaded' },
+              { label: 'Search', value: databaseStatus.semanticSearchAvailable ? 'Enabled' : 'Disabled' },
+            ].map((stat) => (
+              <div key={stat.label} className="bg-background p-4 text-center">
+                <p className="font-heading text-xl font-bold text-foreground">{stat.value}</p>
+                <p className="mt-1 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{stat.label}</p>
               </div>
+            ))}
+          </div>
 
-              {!databaseStatus.semanticSearchAvailable && databaseStatus.semanticSearchReason && (
-                <div className="rounded-lg border border-border bg-secondary/50 p-4 text-sm text-muted-foreground">
-                  {databaseStatus.semanticSearchReason}
-                </div>
-              )}
+          {!databaseStatus.semanticSearchAvailable && databaseStatus.semanticSearchReason && (
+            <div className="mt-4 border border-border bg-secondary/50 p-4 text-sm text-muted-foreground">
+              {databaseStatus.semanticSearchReason}
+            </div>
+          )}
 
-              {shouldShowProgressAlert ? (
-                <Alert>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-2 top-2 h-7 w-7"
-                    onClick={() => setDismissedProgressAlert(true)}
-                    aria-label="Close refresh progress"
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                  {databaseProgress.active ? <Loader2 className="h-4 w-4 animate-spin" /> : <Info className="h-4 w-4" />}
-                  <AlertTitle>
-                    {databaseProgress.active ? 'Refresh in progress' : 'Refresh failed'}
-                  </AlertTitle>
-                  <AlertDescription>
-                    <div className="space-y-2">
-                      <p>{databaseProgress.message}</p>
-                      {databaseProgress.active ? <Progress value={databaseProgress.percent} className="h-2" /> : null}
-                      <p className="text-xs text-muted-foreground">
-                        {databaseProgress.total > 0 ? `${databaseProgress.current}/${databaseProgress.total}` : 'Preparing'}
-                      </p>
-                      {databaseProgress.error ? (
-                        <p className="text-sm text-destructive">{databaseProgress.error}</p>
-                      ) : null}
-                    </div>
-                  </AlertDescription>
-                </Alert>
-              ) : null}
-
-              <div className="space-y-3 p-4 text-sm text-muted-foreground border-b border-border">
-                <p>
-                  Last refreshed:{' '}
-                  <span className="font-medium text-foreground">
-                    {databaseStatus.refreshedAt ? new Date(databaseStatus.refreshedAt).toLocaleString() : 'Never'}
-                  </span>
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <FileSpreadsheet className="h-4 w-4 text-accent" />
-                  <p className="text-sm font-medium text-foreground">Import Source</p>
-                </div>
-                <div className="grid gap-4 lg:grid-cols-2">
-                  <div className="space-y-3 p-4 bg-secondary/50">
-                    <div className="flex items-center gap-2">
-                      <FileUp className="h-4 w-4 text-accent" />
-                      <p className="text-sm font-medium text-foreground">Local JSONL file</p>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Pick a `.jsonl` file from your machine. Rebuild replaces the current data, while update adds only accidents whose Wikipedia URL does not already exist.
-                    </p>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept=".jsonl,application/x-ndjson,text/plain"
-                      className="hidden"
-                      onChange={(event) => { void handleFileImport(event); }}
-                    />
-                    <div className="flex flex-wrap gap-2">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => { setPendingFileAction('rebuild'); fileInputRef.current?.click(); }}
-                        disabled={refreshing}
-                      >
-                        <RefreshCw className="mr-2 h-4 w-4" />
-                        Rebuild Database
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => { setPendingFileAction('update'); fileInputRef.current?.click(); }}
-                        disabled={refreshing}
-                      >
-                        <Upload className="mr-2 h-4 w-4" />
-                        Update Database
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 p-4 bg-secondary/50">
-                    <div className="flex items-center gap-2">
-                      <Globe className="h-4 w-4 text-accent" />
-                      <p className="text-sm font-medium text-foreground">Remote JSONL URL</p>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="data-url">Accidents JSONL URL</Label>
-                      <Input
-                        id="data-url"
-                        value={dataUrl}
-                        onChange={(event) => setDataUrl(event.target.value)}
-                        placeholder="https://example.com/accidents.jsonl"
-                      />
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      <Button type="button" variant="outline" onClick={() => void handleRebuildFromUrl()} disabled={refreshing || !dataUrl.trim()}>
-                        <RefreshCw className="mr-2 h-4 w-4" />
-                        Rebuild Database
-                      </Button>
-                      <Button type="button" variant="outline" onClick={() => void handleUpdateFromUrl()} disabled={refreshing || !dataUrl.trim()}>
-                        <Upload className="mr-2 h-4 w-4" />
-                        Update Database
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Info className="h-3.5 w-3.5" />
-                  URL imports can be refreshed later. File imports require choosing the file again because browsers do not persist local file access automatically.
-                </div>
-              </div>
-
-              {dataSource.type === 'url' && dataSource.dataUrl && (
-                <Button onClick={handleRefresh} disabled={refreshing} className="w-full sm:w-auto">
-                  {refreshing ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
-                  {refreshing ? 'Rebuilding Database' : 'Rebuild Using Saved URL'}
-                </Button>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Brain className="h-5 w-5 text-accent" />
-                Browser Embeddings
-              </CardTitle>
-              <CardDescription>
-                Semantic search runs entirely in the browser using a local ONNX model.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-5">
-<div className="space-y-3 p-4 bg-secondary/50">
-                  <p className="text-sm font-medium text-foreground">Browser Model</p>
-                <div className="space-y-2">
-                  <Label htmlFor="browser-model">ONNX Model</Label>
-                  <Select value={draftBrowserModel} onValueChange={handleBrowserModelChange}>
-                    <SelectTrigger id="browser-model">
-                      <SelectValue placeholder="Select model" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {BROWSER_KNOWN_MODELS.map((model) => (
-                        <SelectItem key={model.id} value={model.id}>{model.label}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {(() => {
-                    const info = BROWSER_KNOWN_MODELS.find((model) => model.id === draftBrowserModel);
-                    return info ? (
-                      <p className="text-xs text-muted-foreground">{info.description}</p>
-                    ) : null;
-                  })()}
-                </div>
-                <div className="rounded-md border border-border bg-background px-3 py-2 text-xs text-muted-foreground">
-                  {draftDimensions}-dimensional vectors will be generated for search.
-                </div>
-              </div>
-
+          {shouldShowProgressAlert ? (
+            <Alert className="mt-4">
               <Button
                 type="button"
-                onClick={() => void handleSaveEmbeddingConfig()}
-                disabled={savingConfig}
+                variant="ghost"
+                size="icon"
+                className="absolute right-2 top-2 h-7 w-7"
+                onClick={() => setDismissedProgressAlert(true)}
+                aria-label="Close refresh progress"
               >
-                {savingConfig ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                {savingConfig ? 'Saving...' : 'Save Configuration'}
+                <X className="h-4 w-4" />
               </Button>
-            </CardContent>
-          </Card>
-        </div>
+              {databaseProgress.active ? <Loader2 className="h-4 w-4 animate-spin" /> : <Info className="h-4 w-4" />}
+              <AlertTitle>
+                {databaseProgress.active ? 'Refresh in progress' : 'Refresh failed'}
+              </AlertTitle>
+              <AlertDescription>
+                <div className="space-y-2">
+                  <p>{databaseProgress.message}</p>
+                  {databaseProgress.active ? <Progress value={databaseProgress.percent} className="h-2" /> : null}
+                  <p className="text-xs text-muted-foreground">
+                    {databaseProgress.total > 0 ? `${databaseProgress.current}/${databaseProgress.total}` : 'Preparing'}
+                  </p>
+                  {databaseProgress.error ? (
+                    <p className="text-sm text-destructive">{databaseProgress.error}</p>
+                  ) : null}
+                </div>
+              </AlertDescription>
+            </Alert>
+          ) : null}
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Download className="h-4 w-4 text-accent" />
-              Embeddings
-            </CardTitle>
-            <CardDescription>
-              Use browser-based semantic search data. MiniLM is the default precomputed option, with Gemma also available.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <input
-              ref={embeddingsInputRef}
-              type="file"
-              accept=".jsonl,application/x-ndjson,text/plain"
-              className="hidden"
-              onChange={(event) => { void handleImportEmbeddings(event); }}
-            />
-            <div className="flex flex-wrap gap-2">
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            <div className="border border-border p-4">
+              <div className="mb-3 flex items-center gap-2">
+                <FileUp className="h-4 w-4 text-accent" />
+                <p className="text-sm font-medium text-foreground">Local JSONL file</p>
+              </div>
+              <p className="mb-3 text-xs text-muted-foreground">
+                Pick a `.jsonl` file from your machine. Rebuild replaces the current data, while update adds only accidents whose Wikipedia URL does not already exist.
+              </p>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".jsonl,application/x-ndjson,text/plain"
+                className="hidden"
+                onChange={(event) => { void handleFileImport(event); }}
+              />
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => { setPendingFileAction('rebuild'); fileInputRef.current?.click(); }}
+                  disabled={refreshing}
+                >
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  Rebuild Database
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => { setPendingFileAction('update'); fileInputRef.current?.click(); }}
+                  disabled={refreshing}
+                >
+                  <Upload className="mr-2 h-4 w-4" />
+                  Update Database
+                </Button>
+              </div>
+            </div>
+
+            <div className="border border-border p-4">
+              <div className="mb-3 flex items-center gap-2">
+                <Globe className="h-4 w-4 text-accent" />
+                <p className="text-sm font-medium text-foreground">Remote JSONL URL</p>
+              </div>
+              <div className="mb-3 space-y-2">
+                <Label htmlFor="data-url">Accidents JSONL URL</Label>
+                <Input
+                  id="data-url"
+                  value={dataUrl}
+                  onChange={(event) => setDataUrl(event.target.value)}
+                  placeholder="https://example.com/accidents.jsonl"
+                />
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button type="button" variant="outline" onClick={() => void handleRebuildFromUrl()} disabled={refreshing || !dataUrl.trim()}>
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  Rebuild Database
+                </Button>
+                <Button type="button" variant="outline" onClick={() => void handleUpdateFromUrl()} disabled={refreshing || !dataUrl.trim()}>
+                  <Upload className="mr-2 h-4 w-4" />
+                  Update Database
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {dataSource.type === 'url' && dataSource.dataUrl && (
+            <Button onClick={handleRefresh} disabled={refreshing} className="mt-4 w-full sm:w-auto">
+              {refreshing ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
+              {refreshing ? 'Rebuilding Database' : 'Rebuild Using Saved URL'}
+            </Button>
+          )}
+        </section>
+
+        {/* Semantic Search Section */}
+        <section>
+          <div className="mb-4 flex items-center gap-2 border-b-2 border-primary pb-2">
+            <div className="flex h-6 w-6 items-center justify-center bg-primary text-primary-foreground">
+              <Brain className="h-3 w-3" />
+            </div>
+            <h2 className="font-heading text-lg font-bold text-foreground">Semantic Search</h2>
+          </div>
+
+          <div className="border border-border p-4">
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-foreground">Browser Model</p>
+                <p className="text-xs text-muted-foreground">ONNX model running locally in your browser.</p>
+              </div>
+              <span className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.08em] px-2 py-1 bg-success text-white">
+                Active
+              </span>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div>
+                <Label htmlFor="browser-model" className="font-mono text-[0.7rem] uppercase text-muted-foreground">Model</Label>
+                <Select value={draftBrowserModel} onValueChange={handleBrowserModelChange}>
+                  <SelectTrigger id="browser-model" className="mt-1">
+                    <SelectValue placeholder="Select model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {BROWSER_KNOWN_MODELS.map((model) => (
+                      <SelectItem key={model.id} value={model.id}>{model.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {(() => {
+                  const info = BROWSER_KNOWN_MODELS.find((model) => model.id === draftBrowserModel);
+                  return info ? (
+                    <p className="mt-1 text-xs text-muted-foreground">{info.description}</p>
+                  ) : null;
+                })()}
+              </div>
+              <div>
+                <Label htmlFor="dimensions" className="font-mono text-[0.7rem] uppercase text-muted-foreground">Dimensions</Label>
+                <Input id="dimensions" value={draftDimensions} readOnly className="mt-1" />
+              </div>
+            </div>
+            <div className="mt-4 flex gap-2 border-t border-border pt-4">
+              <Button type="button" onClick={() => void handleSaveEmbeddingConfig()} disabled={savingConfig}>
+                {savingConfig ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                {savingConfig ? 'Saving…' : 'Save Configuration'}
+              </Button>
+              <Button type="button" variant="outline" onClick={() => void generateSearchEmbeddings()} disabled={refreshing || !databaseStatus.loaded || databaseProgress.active}>
+                {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
+                {isGenerating ? 'Generating Search Data…' : 'Regenerate'}
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Data Management Section */}
+        <section>
+          <div className="mb-4 flex items-center gap-2 border-b-2 border-primary pb-2">
+            <div className="flex h-6 w-6 items-center justify-center bg-primary text-primary-foreground">
+              <FileSpreadsheet className="h-3 w-3" />
+            </div>
+            <h2 className="font-heading text-lg font-bold text-foreground">Data Management</h2>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between border border-border p-4">
+              <div>
+                <p className="text-sm font-medium text-foreground">Export Embeddings</p>
+                <p className="text-xs text-muted-foreground">Download computed search vectors as JSONL.</p>
+              </div>
+              <Button type="button" variant="outline" onClick={() => void handleExportEmbeddings()} disabled={refreshing || !databaseStatus.loaded}>
+                <Download className="mr-2 h-4 w-4" />
+                Export
+              </Button>
+            </div>
+            <div className="flex items-center justify-between border border-border p-4">
+              <div>
+                <p className="text-sm font-medium text-foreground">Import Embeddings</p>
+                <p className="text-xs text-muted-foreground">Restore previously exported embeddings.</p>
+              </div>
+              <input
+                ref={embeddingsInputRef}
+                type="file"
+                accept=".jsonl,application/x-ndjson,text/plain"
+                className="hidden"
+                onChange={(event) => { void handleImportEmbeddings(event); }}
+              />
+              <Button type="button" variant="outline" onClick={() => embeddingsInputRef.current?.click()} disabled={refreshing || !databaseStatus.loaded}>
+                <Upload className="mr-2 h-4 w-4" />
+                Import
+              </Button>
+            </div>
+            <div className="flex items-center justify-between border border-border p-4">
+              <div>
+                <p className="text-sm font-medium text-foreground">Download Precomputed</p>
+                <p className="text-xs text-muted-foreground">Get official pre-generated embeddings.</p>
+              </div>
               <Button
                 type="button"
                 variant="outline"
@@ -404,28 +411,11 @@ export default function Settings() {
                 disabled={refreshing || !databaseStatus.loaded || databaseProgress.active}
               >
                 {databaseProgress.active ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
-                Download Precomputed Embeddings
-              </Button>
-              <Button type="button" variant="outline" onClick={() => void handleExportEmbeddings()} disabled={refreshing || !databaseStatus.loaded}>
-                <Download className="mr-2 h-4 w-4" />
-                Export Embeddings
-              </Button>
-              <Button type="button" variant="outline" onClick={() => embeddingsInputRef.current?.click()} disabled={refreshing || !databaseStatus.loaded}>
-                <Upload className="mr-2 h-4 w-4" />
-                Import Embeddings
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => void generateSearchEmbeddings()}
-                disabled={refreshing || !databaseStatus.loaded || databaseProgress.active}
-              >
-                {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
-                {isGenerating ? 'Generating Search Data...' : 'Generate Search Data'}
+                Download
               </Button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </section>
       </main>
       <DownloadEmbeddingsDialog
         open={downloadEmbeddingsDialogOpen}

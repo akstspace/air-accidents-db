@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -15,7 +16,22 @@ export default {
     extend: {
       fontFamily: {
         sans: [
-          "Inter",
+          "IBM Plex Sans",
+          "-apple-system",
+          "system-ui",
+          "Avenir Next",
+          "Avenir",
+          "Segoe UI",
+          "Helvetica Neue",
+          "Helvetica",
+          "Ubuntu",
+          "Roboto",
+          "Noto",
+          "Arial",
+          "sans-serif",
+        ],
+        heading: [
+          "Space Grotesk",
           "-apple-system",
           "system-ui",
           "Avenir Next",
@@ -99,9 +115,9 @@ export default {
         floating: "var(--shadow-floating)",
       },
       borderRadius: {
-        lg: "14px",
-        md: "9px",
-        sm: "5px",
+        lg: "0px",
+        md: "0px",
+        sm: "0px",
       },
       keyframes: {
         "accordion-down": {
@@ -127,5 +143,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

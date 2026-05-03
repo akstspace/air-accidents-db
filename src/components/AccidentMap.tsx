@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getSeverity } from '@/lib/types';
 import { useTheme } from 'next-themes';
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -18,7 +19,8 @@ type AccidentMapProps = {
 };
 
 export default function AccidentMap({ variant = 'dashboard' }: Readonly<AccidentMapProps>) {
-  const { filteredAccidents, setSelectedAccident } = useDashboard();
+  const { filteredAccidents } = useDashboard();
+  const navigate = useNavigate();
   const { theme, resolvedTheme } = useTheme();
   const effectiveTheme = resolvedTheme === 'dark' ? 'dark' : 'light';
   const title = variant === 'search' ? 'Search Result Map' : 'Global Accident Map';
@@ -43,22 +45,22 @@ export default function AccidentMap({ variant = 'dashboard' }: Readonly<Accident
 
   return (
     <Card className="h-full overflow-hidden">
-      <CardHeader className="flex flex-row items-start justify-between gap-4">
-        <div>
+      <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
           <CardTitle className="text-lg">{title}</CardTitle>
           <p className="mt-1 text-sm text-muted-foreground">{description}</p>
         </div>
-        <Badge variant="secondary">{markers.length.toLocaleString()} markers</Badge>
+        <Badge variant="secondary" className="shrink-0">{markers.length.toLocaleString()} markers</Badge>
       </CardHeader>
       <CardContent>
-        <div className="relative overflow-hidden rounded-lg border border-border" style={{ minHeight: 420, height: '100%' }}>
+        <div className="relative h-[300px] w-full overflow-hidden rounded-lg border border-border sm:h-[360px] lg:h-[420px]">
           <MapContainer
             center={[20, 0]}
             zoom={2}
             style={{
               width: '100%',
               height: '100%',
-              minHeight: 420,
+              minHeight: 300,
               background: effectiveTheme === 'light' ? '#F5F5FA' : '#0E0C2A',
             }}
             zoomControl
@@ -82,7 +84,7 @@ export default function AccidentMap({ variant = 'dashboard' }: Readonly<Accident
                   weight: 1,
                 }}
                 eventHandlers={{
-                  click: () => setSelectedAccident(accident),
+                  click: () => navigate(`/accident/${accident.id}`),
                 }}
               >
                 <Popup>

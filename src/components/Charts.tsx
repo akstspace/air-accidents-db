@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from '@/components/ui/chart';
 import type { ChartConfig } from '@/components/ui/chart';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'motion/react';
 
 const barConfig: ChartConfig = {
@@ -52,23 +51,21 @@ export function AircraftTypeChart() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.1 }}
     >
-      <Card>
-        <CardHeader className="border-b border-border bg-secondary/45 px-4 pb-3 pt-4">
-          <CardTitle className="text-sm font-medium">Crashes by Aircraft Type</CardTitle>
-          <CardDescription className="text-xs">Top 6 aircraft types</CardDescription>
-        </CardHeader>
-        <CardContent className="px-2 pb-3">
-          <ChartContainer config={barConfig} className="h-[180px] w-full">
-            <BarChart accessibilityLayer data={data} margin={{ top: 4, right: 4, bottom: 0, left: -16 }}>
-              <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-border/60" />
-              <XAxis dataKey="name" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar dataKey="count" fill="var(--color-count)" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ChartContainer>
-        </CardContent>
-      </Card>
+      <div className="border-b border-border bg-secondary/45 px-4 pb-3 pt-4">
+        <p className="text-sm font-medium text-foreground">Crashes by Aircraft Type</p>
+        <p className="text-xs text-muted-foreground">Top 6 aircraft types</p>
+      </div>
+      <div className="px-2 pb-3">
+        <ChartContainer config={barConfig} className="h-[180px] w-full">
+          <BarChart accessibilityLayer data={data} margin={{ top: 4, right: 4, bottom: 0, left: -16 }}>
+            <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-border/60" />
+            <XAxis dataKey="name" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Bar dataKey="count" fill="var(--color-count)" radius={[0, 0, 0, 0]} />
+          </BarChart>
+        </ChartContainer>
+      </div>
     </motion.div>
   );
 }
@@ -94,34 +91,32 @@ export function CausesChart() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
     >
-      <Card>
-        <CardHeader className="border-b border-border bg-secondary/45 px-4 pb-3 pt-4">
-          <CardTitle className="text-sm font-medium">Primary Causes</CardTitle>
-          <CardDescription className="text-xs">Categorised from investigation text</CardDescription>
-        </CardHeader>
-        <CardContent className="px-2 pb-3">
-          <ChartContainer config={causesConfig} className="h-[180px] w-full">
-            <PieChart accessibilityLayer>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                outerRadius={60}
-                innerRadius={30}
-                dataKey="value"
-                nameKey="name"
-                paddingAngle={2}
-              >
-                {data.map((entry, index) => (
-                  <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                ))}
-              </Pie>
-              <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
-              <ChartLegend content={<ChartLegendContent nameKey="name" />} />
-            </PieChart>
-          </ChartContainer>
-        </CardContent>
-      </Card>
+      <div className="border-b border-border bg-secondary/45 px-4 pb-3 pt-4">
+        <p className="text-sm font-medium text-foreground">Primary Causes</p>
+        <p className="text-xs text-muted-foreground">Categorised from investigation text</p>
+      </div>
+      <div className="px-2 pb-3">
+        <ChartContainer config={causesConfig} className="h-[180px] w-full">
+          <PieChart accessibilityLayer>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              outerRadius="80%"
+              innerRadius="40%"
+              dataKey="value"
+              nameKey="name"
+              paddingAngle={2}
+            >
+              {data.map((entry, index) => (
+                <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+              ))}
+            </Pie>
+            <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
+            <ChartLegend content={<ChartLegendContent nameKey="name" />} />
+          </PieChart>
+        </ChartContainer>
+      </div>
     </motion.div>
   );
 }
@@ -159,25 +154,23 @@ export function AnnualCrashesChart() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.2 }}
     >
-      <Card>
-        <CardHeader className="border-b border-border bg-secondary/45 px-4 pb-3 pt-4">
-          <CardTitle className="text-sm font-medium">Annual Air Incidents</CardTitle>
-          <CardDescription className="text-xs">Fatal incidents in red, other incidents in orange</CardDescription>
-        </CardHeader>
-        <CardContent className="px-2 pb-3">
-          <ChartContainer config={annualIncidentsConfig} className="h-[220px] w-full">
-            <BarChart accessibilityLayer data={data} margin={{ top: 4, right: 4, bottom: 0, left: -16 }}>
-              <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-border/60" />
-              <XAxis dataKey="year" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <ChartLegend content={<ChartLegendContent />} />
-              <Bar dataKey="fatal" stackId="incidents" fill="var(--color-fatal)" radius={[0, 0, 0, 0]} />
-              <Bar dataKey="incidents" stackId="incidents" fill="var(--color-incidents)" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ChartContainer>
-        </CardContent>
-      </Card>
+      <div className="border-b border-border bg-secondary/45 px-4 pb-3 pt-4">
+        <p className="text-sm font-medium text-foreground">Annual Air Incidents</p>
+        <p className="text-xs text-muted-foreground">Fatal incidents in red, other incidents in orange</p>
+      </div>
+      <div className="px-2 pb-3">
+        <ChartContainer config={annualIncidentsConfig} className="h-[220px] w-full">
+          <BarChart accessibilityLayer data={data} margin={{ top: 4, right: 4, bottom: 0, left: -16 }}>
+            <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-border/60" />
+            <XAxis dataKey="year" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar dataKey="fatal" stackId="incidents" fill="var(--color-fatal)" radius={[0, 0, 0, 0]} />
+            <Bar dataKey="incidents" stackId="incidents" fill="var(--color-incidents)" radius={[0, 0, 0, 0]} />
+          </BarChart>
+        </ChartContainer>
+      </div>
     </motion.div>
   );
 }

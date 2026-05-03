@@ -1,106 +1,511 @@
 schemaVersion: "1.0"
-lastUpdated: 2026-04-28T20:33:08.272Z
+lastUpdated: 2026-05-03T11:29:58.806Z
 application:
   name: Air Accidents DB
   description: ""
   websiteUrl: null
   iconUrl: null
 preset:
-  name: Indigo
-  notes: ""
-  colors:
-    text: "#1E1B4B"
-    neutral: "#F5F5FA"
-    primary: "#1E1B4B"
-    tertiary: "#6366F1"
-    secondary: "#6B6A8C"
-  shadow:
-    sm: 0 1px 2px 0 rgb(0 0 0 / 0.05)
-    md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)
-    lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)
-  rounded:
+  name: Noir
+  metadata:
+    description: Brutalist black, white, and signal red.
+    version: 1.0.0
+  defaultMode: light
+  modes:
+    light:
+      palette:
+        primary: "#000000"
+        secondary: "#555555"
+        tertiary: "#E11D48"
+        neutral: "#FFFFFF"
+        text: "#000000"
+      semantic:
+        background: "#ffffff"
+        foreground: "#000000"
+        muted: "#aaaaaa"
+        mutedForeground: "#555555"
+        border: "#d5d5d5"
+        input: "#cccccc"
+        ring: "#E11D48"
+        brand:
+          background: "#000000"
+          foreground: "#f5f5f5"
+        accent:
+          background: "#E11D48"
+          foreground: "#f5f5f5"
+        surface:
+          default: "#FFFFFF"
+          elevated: "#ffffff"
+          overlay: rgba(0,0,0,0.4)
+        feedback:
+          success: "#16a34a"
+          warning: "#d97706"
+          error: "#dc2626"
+          info: "#2563eb"
+    dark:
+      palette:
+        primary: "#FFFFFF"
+        secondary: "#A3A3A3"
+        tertiary: "#FB7185"
+        neutral: "#000000"
+        text: "#FFFFFF"
+      semantic:
+        background: "#000000"
+        foreground: "#FFFFFF"
+        muted: "#292929"
+        mutedForeground: "#A3A3A3"
+        border: "#393939"
+        input: "#414141"
+        ring: "#FB7185"
+        brand:
+          background: "#FFFFFF"
+          foreground: "#171717"
+        accent:
+          background: "#FB7185"
+          foreground: "#f5f5f5"
+        surface:
+          default: "#0f0f0f"
+          elevated: "#1a1a1a"
+          overlay: rgba(0,0,0,0.7)
+        feedback:
+          success: "#22c55e"
+          warning: "#f59e0b"
+          error: "#ef4444"
+          info: "#3b82f6"
+  typography:
+    fonts:
+      heading: Space Grotesk
+      body: IBM Plex Sans
+      mono: IBM Plex Mono
+    scale:
+      h1:
+        fontFamily: Space Grotesk
+        fontSize: 3rem
+        fontWeight: "800"
+        lineHeight: "1.05"
+      h2:
+        fontFamily: Space Grotesk
+        fontSize: 2rem
+        fontWeight: "700"
+        lineHeight: "1.15"
+      body-md:
+        fontFamily: IBM Plex Sans
+        fontSize: 1rem
+        fontWeight: "400"
+        lineHeight: "1.6"
+      label-caps:
+        fontFamily: IBM Plex Mono
+        fontSize: 0.75rem
+        fontWeight: "600"
+        letterSpacing: 0.12em
+        textTransform: uppercase
+  radius:
     none: 0px
-    sm: 5px
-    md: 9px
-    lg: 14px
-    xl: 18px
+    sm: 0px
+    md: 0px
+    lg: 2px
+    xl: 4px
     full: 9999px
   spacing:
     xs: 4px
     sm: 8px
-    md: 15px
-    lg: 24px
-    xl: 34px
-  overview: Studio violet with cool ink.
-  semantic:
-    ring: "#6366F1"
-    brand:
-      background: "#1E1B4B"
-      foreground: "#f5f5f5"
-    input: "#cccbd9"
-    muted: "#b0b0c3"
-    accent:
-      background: "#6366F1"
-      foreground: "#f5f5f5"
-    border: "#d3d2df"
-    surface:
-      default: "#F5F5FA"
-      overlay: rgba(0,0,0,0.4)
-      elevated: "#ffffff"
-    feedback:
-      info: "#2563eb"
-      error: "#dc2626"
-      success: "#16a34a"
-      warning: "#d97706"
-    background: "#ffffff"
-    foreground: "#1E1B4B"
-    mutedForeground: "#6B6A8C"
-  paletteId: indigo
-  themeMode: light
-  colorsDark:
-    text: "#F5F5FA"
-    neutral: "#0E0C2A"
-    primary: "#F5F5FA"
-    tertiary: "#A5B4FC"
-    secondary: "#9C9BC0"
+    md: 14px
+    lg: 22px
+    xl: 30px
+  shadow:
+    lg: 0 12px 20px -14px rgb(0 0 0 / 0.28)
+    md: 0 6px 10px -8px rgb(0 0 0 / 0.25)
+    sm: 0 0 0 1px rgb(0 0 0 / 0.08)
   components:
-    buttonPrimary:
-      bg: "{colors.tertiary}"
-      text: "#ffffff"
-      padding: 12px
-      rounded: "{rounded.sm}"
-  typography:
-    headingFamily: Inter
-    bodyFamily: Inter
-    labelFamily: IBM Plex Mono
-    monoFamily: IBM Plex Mono
-    h1Size: 3rem
-    h2Size: 2rem
-    bodySize: 1rem
-    labelSize: 0.75rem
-  semanticDark:
-    ring: "#A5B4FC"
-    brand:
-      background: "#F5F5FA"
-      foreground: "#171717"
-    input: "#474566"
-    muted: "#323050"
-    accent:
-      background: "#A5B4FC"
-      foreground: "#f5f5f5"
-    border: "#403e5f"
-    surface:
-      default: "#1c1b37"
-      overlay: rgba(0,0,0,0.7)
-      elevated: "#26243f"
-    feedback:
-      info: "#3b82f6"
-      error: "#ef4444"
-      success: "#22c55e"
-      warning: "#f59e0b"
-    background: "#0E0C2A"
-    foreground: "#F5F5FA"
-    mutedForeground: "#9C9BC0"
+    button:
+      modes:
+        light:
+          variant: default
+          size: default
+          shadow: none
+          bg: "#E11D48"
+          text: "#f5f5f5"
+          borderRadius: 0px
+        dark:
+          bg: "#FB7185"
+          text: "#f5f5f5"
+          borderRadius: 0px
+    input:
+      modes:
+        light:
+          shadow: none
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    textarea:
+      modes:
+        light:
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    select:
+      modes:
+        light:
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    checkbox:
+      modes:
+        light:
+          bg: "#E11D48"
+          text: "#f5f5f5"
+          borderRadius: 0px
+        dark:
+          bg: "#FB7185"
+          text: "#f5f5f5"
+          borderRadius: 0px
+    button-group:
+      modes:
+        light:
+          bg: "#E11D48"
+          text: "#f5f5f5"
+          borderRadius: 0px
+        dark:
+          bg: "#FB7185"
+          text: "#f5f5f5"
+          borderRadius: 0px
+    input-group:
+      modes:
+        light:
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    radio-group:
+      modes:
+        light:
+          bg: "#E11D48"
+          text: "#f5f5f5"
+          border: "#d5d5d5"
+        dark:
+          bg: "#FB7185"
+          text: "#f5f5f5"
+          border: "#393939"
+    tabs:
+      modes:
+        light:
+          border: "#aaaaaa"
+          text: "#000000"
+          borderRadius: 0px
+        dark:
+          border: "#292929"
+          text: "#FFFFFF"
+          borderRadius: 0px
+    navigation-menu:
+      modes:
+        light:
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+    menubar:
+      modes:
+        light:
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+    breadcrumb:
+      modes:
+        light:
+          text: "#000000"
+          border: "#555555"
+        dark:
+          text: "#FFFFFF"
+          border: "#A3A3A3"
+    pagination:
+      modes:
+        light:
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    command:
+      modes:
+        light:
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+    dialog:
+      modes:
+        light:
+          shadow: lg
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#1a1a1a"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    alert-dialog:
+      modes:
+        light:
+          shadow: lg
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#1a1a1a"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    sheet:
+      modes:
+        light:
+          shadow: lg
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+        dark:
+          bg: "#1a1a1a"
+          text: "#FFFFFF"
+          border: "#393939"
+    dropdown-menu:
+      modes:
+        light:
+          shadow: md
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#1a1a1a"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    dropdown-menu-item:
+      modes:
+        light:
+          bg: "#E11D48"
+          text: "#f5f5f5"
+          borderRadius: 0px
+        dark:
+          bg: "#FB7185"
+          text: "#f5f5f5"
+          borderRadius: 0px
+    context-menu:
+      modes:
+        light:
+          shadow: md
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#1a1a1a"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    context-menu-item:
+      modes:
+        light:
+          bg: "#E11D48"
+          text: "#f5f5f5"
+          borderRadius: 0px
+        dark:
+          bg: "#FB7185"
+          text: "#f5f5f5"
+          borderRadius: 0px
+    popover:
+      modes:
+        light:
+          shadow: md
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#1a1a1a"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    tooltip:
+      modes:
+        light:
+          text: "#000000"
+          bg: "#ffffff"
+          borderRadius: 0px
+        dark:
+          text: "#FFFFFF"
+          bg: "#000000"
+          borderRadius: 0px
+    hover-card:
+      modes:
+        light:
+          shadow: md
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#1a1a1a"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    alert:
+      modes:
+        light:
+          variant: default
+          bg: "#FFFFFF"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#0f0f0f"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    badge:
+      modes:
+        light:
+          variant: default
+          bg: "#E11D48"
+          text: "#f5f5f5"
+          borderRadius: 0px
+        dark:
+          bg: "#FB7185"
+          text: "#f5f5f5"
+          borderRadius: 0px
+    progress:
+      modes:
+        light:
+          border: "#aaaaaa"
+          bg: "#E11D48"
+          borderRadius: 0px
+        dark:
+          border: "#292929"
+          bg: "#FB7185"
+          borderRadius: 0px
+    skeleton:
+      modes:
+        light:
+          border: "#aaaaaa"
+          borderRadius: 0px
+        dark:
+          border: "#292929"
+          borderRadius: 0px
+    spinner:
+      modes:
+        light:
+          border: "#aaaaaa"
+          bg: "#E11D48"
+        dark:
+          border: "#292929"
+          bg: "#FB7185"
+    accordion:
+      modes:
+        light:
+          bg: "#FFFFFF"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#0f0f0f"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
+    collapsible:
+      modes:
+        light:
+          bg: "#FFFFFF"
+          text: "#000000"
+          border: "#d5d5d5"
+        dark:
+          bg: "#0f0f0f"
+          text: "#FFFFFF"
+          border: "#393939"
+    separator:
+      modes:
+        light:
+          border: "#d5d5d5"
+        dark:
+          border: "#393939"
+    scroll-area:
+      modes:
+        light:
+          bg: "#ffffff"
+          border: "#d5d5d5"
+        dark:
+          bg: "#000000"
+          border: "#393939"
+    avatar:
+      modes:
+        light:
+          border: "#aaaaaa"
+          text: "#000000"
+          borderRadius: 0px
+        dark:
+          border: "#292929"
+          text: "#FFFFFF"
+          borderRadius: 0px
+    carousel:
+      modes:
+        light:
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+    table:
+      modes:
+        light:
+          bg: "#ffffff"
+          text: "#000000"
+          border: "#d5d5d5"
+          borderRadius: 0px
+        dark:
+          bg: "#000000"
+          text: "#FFFFFF"
+          border: "#393939"
+          borderRadius: 0px
 rulesets:
   - name: Impeccable Interface Audit
     description: Default rules derived from Impeccable style guidance for detecting generic AI UI patterns, weak typography, poor contrast, repetitive layouts, unsafe motion, interaction hierarchy problems, responsive regressions, and document structure issues.
@@ -109,7 +514,7 @@ rulesets:
       - id: rule-ds-01-preset-token-compliance
         title: Follow the linked design preset
         category: visual
-        guidance: Flag UI that violates the application's linked Chai Studio design preset. Colors, typography, spacing, radius, shadows, component treatments, semantic token usage, and light/dark behavior must match the preset returned by get-design-doc/get-presets. Replace hard-coded or off-preset values with the preset's tokens unless the user explicitly requested an exception.
+        guidance: Flag UI that violates the application's linked Chai Studio design preset. Colors, typography, spacing, radius, shadows, component treatments, semantic token usage, and light/dark behavior must match the preset returned by design.docs.get or presets.get. Replace hard-coded or off-preset values with the preset's tokens unless the user explicitly requested an exception.
         severity: critical
       - id: rule-vd-01-side-tab-accent-border
         title: Reject one-sided accent borders on rounded cards

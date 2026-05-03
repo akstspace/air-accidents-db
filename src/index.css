@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,89 +6,135 @@
 
 @layer base {
   :root {
+    /* Noir preset — light mode */
     --background: 0 0% 100%;
-    --foreground: 244 47% 20%;
-    --card: 240 33% 97%;
-    --card-foreground: 244 47% 20%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
     --popover: 0 0% 100%;
-    --popover-foreground: 244 47% 20%;
-    --primary: 244 47% 20%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 0% 0%;
     --primary-foreground: 0 0% 96%;
-    --secondary: 240 33% 97%;
-    --secondary-foreground: 244 47% 20%;
-    --muted: 240 13% 73%;
-    --muted-foreground: 242 14% 48%;
-    --accent: 239 84% 67%;
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 67%;
+    --muted-foreground: 0 0% 33%;
+    --accent: 348 82% 51%;
     --accent-foreground: 0 0% 96%;
-    --destructive: 0 84% 51%;
+    --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 242 16% 85%;
-    --input: 242 15% 82%;
-    --ring: 239 84% 67%;
-    --radius: 0.5625rem;
-    --severity-fatal: 0 84% 51%;
+    --border: 0 0% 84%;
+    --input: 0 0% 80%;
+    --ring: 348 82% 51%;
+    --radius: 0rem;
+    --severity-fatal: 348 82% 51%;
     --severity-serious: 29 92% 47%;
     --severity-incident: 225 73% 57%;
-    --sidebar-background: 240 33% 97%;
-    --sidebar-foreground: 244 47% 20%;
-    --sidebar-primary: 244 47% 20%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 0 0% 0%;
     --sidebar-primary-foreground: 0 0% 96%;
-    --sidebar-accent: 240 33% 97%;
-    --sidebar-accent-foreground: 244 47% 20%;
-    --sidebar-border: 241 13% 82%;
-    --sidebar-ring: 239 84% 67%;
-    --chart-bar: 244 47% 20%;
-    --chart-line: 239 84% 67%;
-    --chart-1: 244 47% 20%;
-    --chart-2: 242 14% 48%;
-    --chart-3: 239 84% 67%;
-    --chart-4: 228 93% 82%;
-    --chart-5: 240 13% 73%;
-    --selection-bg: 239 84% 90%;
-    --selection-fg: 244 47% 20%;
-    --control-accent: 239 84% 67%;
-    --shadow-floating: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 6 / 0.1);
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 0% 84%;
+    --sidebar-ring: 348 82% 51%;
+    --chart-bar: 0 0% 0%;
+    --chart-line: 348 82% 51%;
+    --chart-1: 0 0% 0%;
+    --chart-2: 0 0% 33%;
+    --chart-3: 348 82% 51%;
+    --chart-4: 0 0% 67%;
+    --chart-5: 0 0% 84%;
+    --selection-bg: 348 82% 90%;
+    --selection-fg: 0 0% 0%;
+    --control-accent: 348 82% 51%;
+    --shadow-floating: 0 12px 20px -14px rgb(0 0 0 / 0.28);
+
+    /* Canvas-compatible token aliases */
+    --color-bg: #ffffff;
+    --color-fg: #000000;
+    --color-muted: #aaaaaa;
+    --color-muted-fg: #555555;
+    --color-border: #d5d5d5;
+    --color-ring: #E11D48;
+    --color-brand-bg: #000000;
+    --color-brand-fg: #f5f5f5;
+    --color-accent-bg: #E11D48;
+    --color-accent-fg: #f5f5f5;
+    --color-surface: #FFFFFF;
+    --color-surface-elevated: #ffffff;
+    --color-success: #16a34a;
+    --color-warning: #d97706;
+    --color-error: #dc2626;
+    --color-info: #2563eb;
+    --font-family-heading: 'Space Grotesk', sans-serif;
+    --font-family: 'IBM Plex Sans', sans-serif;
+    --font-family-label: 'IBM Plex Mono', monospace;
+    --font-family-mono: 'IBM Plex Mono', monospace;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 14px;
+    --space-lg: 22px;
+    --space-xl: 30px;
   }
 
   .dark {
-    --background: 244 55% 11%;
-    --foreground: 240 20% 97%;
-    --card: 243 34% 16%;
-    --card-foreground: 240 20% 97%;
-    --popover: 244 27% 19%;
-    --popover-foreground: 240 20% 97%;
-    --primary: 240 20% 97%;
-    --primary-foreground: 244 55% 11%;
-    --secondary: 243 25% 25%;
-    --secondary-foreground: 240 20% 97%;
-    --muted: 243 25% 25%;
-    --muted-foreground: 241 21% 68%;
-    --accent: 228 93% 82%;
-    --accent-foreground: 0 0% 100%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 352 96% 71%;
+    --accent-foreground: 0 0% 96%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 242 21% 31%;
-    --input: 241 17% 36%;
-    --ring: 228 93% 82%;
-    --sidebar-background: 243 34% 16%;
-    --sidebar-foreground: 240 20% 97%;
-    --sidebar-primary: 240 20% 97%;
-    --sidebar-primary-foreground: 244 55% 11%;
-    --sidebar-accent: 243 25% 25%;
-    --sidebar-accent-foreground: 240 20% 97%;
-    --sidebar-border: 242 21% 31%;
-    --sidebar-ring: 228 93% 82%;
-    --chart-bar: 240 20% 97%;
-    --chart-line: 228 93% 82%;
-    --chart-1: 240 20% 97%;
-    --chart-2: 241 21% 68%;
-    --chart-3: 228 93% 82%;
-    --chart-4: 228 76% 67%;
-    --chart-5: 242 21% 31%;
-    --selection-bg: 243 25% 35%;
-    --selection-fg: 240 20% 97%;
-    --control-accent: 228 93% 82%;
-    --shadow-floating: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.15);
+    --border: 0 0% 22%;
+    --input: 0 0% 26%;
+    --ring: 352 96% 71%;
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 9%;
+    --sidebar-accent: 0 0% 16%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 22%;
+    --sidebar-ring: 352 96% 71%;
+    --chart-bar: 0 0% 100%;
+    --chart-line: 352 96% 71%;
+    --chart-1: 0 0% 100%;
+    --chart-2: 0 0% 64%;
+    --chart-3: 352 96% 71%;
+    --chart-4: 352 76% 67%;
+    --chart-5: 0 0% 22%;
+    --selection-bg: 0 0% 16%;
+    --selection-fg: 0 0% 100%;
+    --control-accent: 352 96% 71%;
+    --shadow-floating: 0 12px 20px -14px rgb(0 0 0 / 0.28);
+
+    /* Canvas-compatible dark token aliases */
+    --color-bg: #000000;
+    --color-fg: #FFFFFF;
+    --color-muted: #292929;
+    --color-muted-fg: #A3A3A3;
+    --color-border: #393939;
+    --color-ring: #FB7185;
+    --color-brand-bg: #FFFFFF;
+    --color-brand-fg: #171717;
+    --color-accent-bg: #FB7185;
+    --color-accent-fg: #f5f5f5;
+    --color-surface: #0f0f0f;
+    --color-surface-elevated: #1a1a1a;
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+    --color-info: #3b82f6;
   }
 
   * {
@@ -101,8 +147,12 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', -apple-system, system-ui, 'Avenir Next', Avenir, 'Segoe UI', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif;
+    font-family: 'IBM Plex Sans', -apple-system, system-ui, 'Avenir Next', Avenir, 'Segoe UI', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif;
     line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
   }
 
   #root {
@@ -125,7 +175,7 @@
 
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--border));
-    border-radius: 999px;
+    border-radius: 0;
   }
 
   ::-webkit-scrollbar-thumb:hover {

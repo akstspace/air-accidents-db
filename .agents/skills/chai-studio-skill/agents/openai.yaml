@@ -1,12 +1,12 @@
 interface:
   display_name: "Chai Studio MCP"
-  short_description: "Redesign, audit, and sync UI with Chai Studio MCP"
+  short_description: "Redesign, audit, sync UI, and plan with Chai Studio MCP"
   brand_color: "#B8422E"
   default_prompt: "Use $chai-studio-skill to redesign this project from live Chai Studio MCP design context, build after write changes, offer browser MCP review when available, audit the result, and update violation statuses."
 dependencies:
   tools:
     - type: "mcp"
       value: "chai-studio"
-      description: "Chai Studio MCP server for applications, presets, rulesets, design docs, audits, and violations."
+      description: "Chai Studio MCP server for applications, presets, rulesets, design docs, audits, violations, canvases, and journals."
 policy:
   allow_implicit_invocation: true
